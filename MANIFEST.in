@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include katara_club_api *.css
+recursive-include katara_club_api *.csv
+recursive-include katara_club_api *.html
+recursive-include katara_club_api *.ico
+recursive-include katara_club_api *.js
+recursive-include katara_club_api *.json
+recursive-include katara_club_api *.md
+recursive-include katara_club_api *.png
+recursive-include katara_club_api *.py
+recursive-include katara_club_api *.svg
+recursive-include katara_club_api *.txt
+recursive-exclude katara_club_api *.pyc
