@@ -24,7 +24,7 @@ def login(usr,pwd):
 	return
 
 @frappe.whitelist(allow_guest=True)
-def user_sign_up(email, full_name, mobile_no, password):
+def user_sign_up(email, full_name, last_name, gender, dob, qatar_id, tnc, mobile_no, password):
 	if not is_signup_enabled():
 		frappe.throw(_('Sign Up is disabled'), title='Not Allowed')
 
@@ -47,6 +47,11 @@ def user_sign_up(email, full_name, mobile_no, password):
 			"doctype":"User",
 			"email": email,
 			"first_name": escape_html(full_name),
+			"last_name": escape_html(last_name),
+			"gender": escape_html(gender),
+			: dob,
+			:qatar_id,
+			:tnc,
 			"mobile_no": mobile_no,
 			"enabled": 1,
 			"new_password": password,
