@@ -18,7 +18,7 @@ def login(usr,pwd):
 		return
 	frappe.errprint(frappe.session)
 	user = frappe.get_doc("User",frappe.session.user)
-	client_details = frappe.get_all('Client', filters={'user': frappe.session.user}, fields=['client_id', 'client_name','membership_status'])
+	client_details = frappe.get_all('Client', filters={'user': frappe.session.user}, fields=['name'])
 	frappe.local.response["message"] =  {
 		"secret": frappe.utils.password.get_decrypted_password("User", user.name, fieldname='api_secret'),
 		"client_details": client_details,
