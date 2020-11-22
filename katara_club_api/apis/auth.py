@@ -16,18 +16,19 @@ def login(usr,pwd):
 		frappe.clear_messages()
 		frappe.local.response["message"] =  {"success_key":0,"message":"Authentication Fail"}
 		return
-	frappe.errprint(frappe.session.user)
+	frappe.errprint(frappe.session)
 	user = frappe.get_doc("User",frappe.session.user)
 	client_details = frappe.get_all('Client', filters={'user': frappe.session.user}, fields=['client_id', 'client_name','membership_status'])
 	frappe.local.response["message"] =  {
 		"details":user,
 		"secret": frappe.utils.password.get_decrypted_password("User", user.name, fieldname='api_secret'),
-		"client_details": client_details
+		"client_details": client_details,
+		"sid": frappe.session.sid
 	}
 	return
 
 @frappe.whitelist(allow_guest=True)
-def user_sign_up(email, full_name, last_name, gender, dob, qatar_id, tnc, mobile_no, password):
+def user_sign_up(email, full_name, last_name, gender, dob, qatar_id, mobile_no, password):
 	if not is_signup_enabled():
 		frappe.throw(_('Sign Up is disabled'), title='Not Allowed')
 
@@ -54,7 +55,7 @@ def user_sign_up(email, full_name, last_name, gender, dob, qatar_id, tnc, mobile
 			"gender": escape_html(gender),
 			"birth_date": dob,
 			"qatar_id":qatar_id,
-			"tnc":tnc,
+			# "tnc":tnc,
 			"mobile_no": mobile_no,
 			"enabled": 1,
 			"new_password": password,
