@@ -69,7 +69,4 @@ def user_sign_up(email, full_name, last_name, gender, dob, qatar_id, tnc, mobile
 		if default_role:
 			user.add_roles(default_role)
 
-		if user.flags.email_sent:
-			return 1, _("Please check your email for verification")
-		else:
-			return 2, _("Please ask your administrator to verify your sign-up")
+		return 1, _("success")
