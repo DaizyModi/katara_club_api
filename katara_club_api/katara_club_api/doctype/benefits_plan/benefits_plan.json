@@ -1,0 +1,80 @@
+{
+ "autoname": "field:benefits_name",
+ "creation": "2020-11-24 11:39:35.667165",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "benefits_name",
+  "included_benefits",
+  "discounts_section",
+  "boho_social",
+  "barberbeauty_salon",
+  "retail",
+  "spa_treatments"
+ ],
+ "fields": [
+  {
+   "fieldname": "benefits_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Benefits Plan Name",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "included_benefits",
+   "fieldtype": "Table",
+   "label": "Included Benefits",
+   "options": "Benefits Item"
+  },
+  {
+   "fieldname": "discounts_section",
+   "fieldtype": "Section Break",
+   "label": "Discounts"
+  },
+  {
+   "fieldname": "boho_social",
+   "fieldtype": "Int",
+   "label": "BOHO Social"
+  },
+  {
+   "fieldname": "barberbeauty_salon",
+   "fieldtype": "Int",
+   "label": "BarberBeauty Salon"
+  },
+  {
+   "fieldname": "retail",
+   "fieldtype": "Int",
+   "label": "Retail"
+  },
+  {
+   "fieldname": "spa_treatments",
+   "fieldtype": "Int",
+   "label": "Spa Treatments"
+  }
+ ],
+ "modified": "2020-11-24 11:50:13.108070",
+ "modified_by": "Administrator",
+ "module": "Katara Club Api",
+ "name": "Benefits Plan",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

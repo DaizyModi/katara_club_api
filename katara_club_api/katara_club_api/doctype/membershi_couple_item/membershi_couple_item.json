@@ -1,0 +1,73 @@
+{
+ "creation": "2020-11-24 12:18:16.511750",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "second_member_full_name",
+  "second_member_date_of_birth",
+  "second_member_nationality",
+  "second_member_qid_number",
+  "second_member_occupation",
+  "second_member_gender",
+  "second_member_mobile_number",
+  "second_member_email_address"
+ ],
+ "fields": [
+  {
+   "fieldname": "second_member_full_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Full Name"
+  },
+  {
+   "fieldname": "second_member_date_of_birth",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Date Of Birth"
+  },
+  {
+   "fieldname": "second_member_nationality",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Nationality"
+  },
+  {
+   "fieldname": "second_member_qid_number",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "QID Number"
+  },
+  {
+   "fieldname": "second_member_occupation",
+   "fieldtype": "Data",
+   "label": "Occupation"
+  },
+  {
+   "fieldname": "second_member_gender",
+   "fieldtype": "Data",
+   "label": "Gender"
+  },
+  {
+   "fieldname": "second_member_mobile_number",
+   "fieldtype": "Data",
+   "label": "Mobile Number"
+  },
+  {
+   "fieldname": "second_member_email_address",
+   "fieldtype": "Data",
+   "label": "Email Address"
+  }
+ ],
+ "istable": 1,
+ "modified": "2020-11-24 12:18:20.771646",
+ "modified_by": "Administrator",
+ "module": "Katara Club Api",
+ "name": "Membershi Couple Item",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

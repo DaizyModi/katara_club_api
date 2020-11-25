@@ -1,0 +1,98 @@
+{
+ "autoname": "field:membership_plan_name",
+ "creation": "2020-11-24 11:33:57.215489",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "membership_plan_name",
+  "membership_type",
+  "column_break_3",
+  "duration",
+  "on_app",
+  "amount_section",
+  "joining_fee",
+  "membership_fee",
+  "benefits_item"
+ ],
+ "fields": [
+  {
+   "fieldname": "membership_plan_name",
+   "fieldtype": "Data",
+   "label": "Membership Plan Name",
+   "unique": 1
+  },
+  {
+   "fieldname": "membership_type",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Membership Type",
+   "options": "Memberships Type",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "duration",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Duration (in Days)",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "on_app",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Show on App"
+  },
+  {
+   "fieldname": "amount_section",
+   "fieldtype": "Section Break",
+   "label": "Amount"
+  },
+  {
+   "fieldname": "joining_fee",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Joining Fee"
+  },
+  {
+   "fieldname": "membership_fee",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Membership Fee"
+  },
+  {
+   "fieldname": "benefits_item",
+   "fieldtype": "Link",
+   "label": "Benefits Plan",
+   "options": "Benefits Plan"
+  }
+ ],
+ "modified": "2020-11-24 12:25:45.254231",
+ "modified_by": "Administrator",
+ "module": "Katara Club Api",
+ "name": "Memberships Plan",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

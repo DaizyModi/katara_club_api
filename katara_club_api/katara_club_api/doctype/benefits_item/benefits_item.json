@@ -1,0 +1,52 @@
+{
+ "creation": "2020-11-24 11:45:10.854840",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "benefits",
+  "count",
+  "quantity",
+  "duration_in_minutes"
+ ],
+ "fields": [
+  {
+   "fieldname": "benefits",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Benefits",
+   "options": "Benefits"
+  },
+  {
+   "fieldname": "count",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Count",
+   "options": "Limited\nUnlimited",
+   "reqd": 1
+  },
+  {
+   "fieldname": "quantity",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Quantity"
+  },
+  {
+   "fieldname": "duration_in_minutes",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Duration in minutes"
+  }
+ ],
+ "istable": 1,
+ "modified": "2020-11-24 11:51:26.853304",
+ "modified_by": "Administrator",
+ "module": "Katara Club Api",
+ "name": "Benefits Item",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

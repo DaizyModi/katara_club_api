@@ -79,13 +79,21 @@ app_license = "MIT"
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
-# 	"*": {
-# 		"on_update": "method",
-# 		"on_cancel": "method",
-# 		"on_trash": "method"
-#	}
-# }
+doc_events = {
+	"User": {
+		"after_insert": "katara_club_api.utility.user.user_after_insert",
+		"validate": "katara_club_api.utility.user.user_validate"
+	},
+	"Customer": {
+		"validate": "katara_club_api.utility.customer.customer_validate"
+	},
+	"Client": {
+		"validate": "katara_club_api.utility.client.client_validate"
+	},
+	"Memberships Application": {
+		"validate": "katara_club_api.utility.memberships_application.memberships_application_validate"
+	}
+}
 
 # Scheduled Tasks
 # ---------------

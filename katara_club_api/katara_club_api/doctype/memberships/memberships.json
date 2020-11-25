@@ -1,0 +1,191 @@
+{
+ "autoname": "field:title",
+ "creation": "2020-11-24 12:28:31.206344",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "title",
+  "client_id",
+  "name1",
+  "column_break_4",
+  "membership_id",
+  "membership_type",
+  "plan_details_section",
+  "membership_plan",
+  "membership_typess",
+  "duration",
+  "column_break_11",
+  "start_date",
+  "end_date",
+  "benefit_details_section",
+  "benefits_paln",
+  "benefits_item",
+  "discounts_section",
+  "boho_social",
+  "barberbeauty_salon",
+  "column_break_20",
+  "retail",
+  "spa_treatments"
+ ],
+ "fields": [
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "label": "Series",
+   "unique": 1
+  },
+  {
+   "fieldname": "client_id",
+   "fieldtype": "Link",
+   "label": "Client ID",
+   "options": "Client"
+  },
+  {
+   "fieldname": "name1",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Full Name",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "membership_id",
+   "fieldtype": "Data",
+   "label": "Membership ID"
+  },
+  {
+   "fetch_from": "client_id.membership_status",
+   "fieldname": "membership_type",
+   "fieldtype": "Select",
+   "label": "Membership Status",
+   "options": "\nMember\nNon-Member",
+   "read_only": 1
+  },
+  {
+   "fieldname": "plan_details_section",
+   "fieldtype": "Section Break",
+   "label": "Plan Details"
+  },
+  {
+   "fieldname": "membership_plan",
+   "fieldtype": "Link",
+   "label": "Membership Plan",
+   "options": "Memberships Plan",
+   "read_only": 1
+  },
+  {
+   "fieldname": "membership_typess",
+   "fieldtype": "Data",
+   "label": "Membership Type",
+   "options": "Memberships Type",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "membership_plan.duration",
+   "fieldname": "duration",
+   "fieldtype": "Data",
+   "label": "Duration",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_11",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Today",
+   "fieldname": "start_date",
+   "fieldtype": "Date",
+   "label": "Membership Start Date"
+  },
+  {
+   "fieldname": "end_date",
+   "fieldtype": "Date",
+   "label": "Membership Expiry Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "benefit_details_section",
+   "fieldtype": "Section Break",
+   "label": "Benefit Details"
+  },
+  {
+   "fieldname": "benefits_paln",
+   "fieldtype": "Link",
+   "label": "Benefits Paln",
+   "options": "Benefits Plan",
+   "read_only": 1
+  },
+  {
+   "fieldname": "benefits_item",
+   "fieldtype": "Table",
+   "label": "Benefits Item",
+   "options": "Benefits Item",
+   "read_only": 1
+  },
+  {
+   "fieldname": "discounts_section",
+   "fieldtype": "Section Break",
+   "label": "Discount Percentage"
+  },
+  {
+   "fetch_from": "benefits_paln.boho_social",
+   "fieldname": "boho_social",
+   "fieldtype": "Int",
+   "label": "BOHO Social",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "benefits_paln.barberbeauty_salon",
+   "fieldname": "barberbeauty_salon",
+   "fieldtype": "Int",
+   "label": "BarberBeauty Salon",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_20",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "benefits_paln.retail",
+   "fieldname": "retail",
+   "fieldtype": "Int",
+   "label": "Retail",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "benefits_paln.spa_treatments",
+   "fieldname": "spa_treatments",
+   "fieldtype": "Int",
+   "label": "Spa Treatments",
+   "read_only": 1
+  }
+ ],
+ "modified": "2020-11-24 12:41:32.760625",
+ "modified_by": "Administrator",
+ "module": "Katara Club Api",
+ "name": "Memberships",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
