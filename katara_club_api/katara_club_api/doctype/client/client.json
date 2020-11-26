@@ -1,0 +1,349 @@
+{
+ "autoname": "naming_series:",
+ "creation": "2020-11-17 14:54:30.543891",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "client_demographics_section",
+  "naming_series",
+  "user",
+  "first_name",
+  "middle_name",
+  "last_name",
+  "client_name",
+  "gender",
+  "birth_date",
+  "age_html",
+  "nationality",
+  "image",
+  "column_break_13",
+  "status",
+  "membership_status",
+  "qatar_id",
+  "mobile_no",
+  "email",
+  "phone",
+  "reg_on_app",
+  "notification_preference",
+  "customer_details_section",
+  "customer",
+  "customer_group",
+  "territory",
+  "column_break_26",
+  "default_currency",
+  "default_price_list",
+  "language",
+  "personal_and_social_history_section",
+  "occupation",
+  "column_break_32",
+  "marital_status",
+  "sb_relation",
+  "client_relation",
+  "allergies_and_medical_history_section",
+  "allergies",
+  "medication",
+  "column_break_39",
+  "medical_history",
+  "more_info",
+  "client_details",
+  "referral_type",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "client_demographics_section",
+   "fieldtype": "Section Break",
+   "label": "Client Demographics"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Series",
+   "options": "KC-ID-.####",
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "user",
+   "fieldtype": "Link",
+   "label": "User",
+   "options": "User"
+  },
+  {
+   "fieldname": "first_name",
+   "fieldtype": "Data",
+   "label": "First Name"
+  },
+  {
+   "fieldname": "middle_name",
+   "fieldtype": "Data",
+   "label": "Middle Name"
+  },
+  {
+   "fieldname": "last_name",
+   "fieldtype": "Data",
+   "label": "Last Name"
+  },
+  {
+   "bold": 1,
+   "fieldname": "client_name",
+   "fieldtype": "Data",
+   "in_global_search": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Full Name",
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "gender",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "label": "Gender",
+   "options": "Gender",
+   "reqd": 1
+  },
+  {
+   "bold": 1,
+   "fieldname": "birth_date",
+   "fieldtype": "Date",
+   "in_preview": 1,
+   "label": "Date of birth"
+  },
+  {
+   "fieldname": "age_html",
+   "fieldtype": "Data",
+   "label": "Age",
+   "read_only": 1
+  },
+  {
+   "fieldname": "nationality",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Nationality",
+   "options": "Country"
+  },
+  {
+   "fieldname": "image",
+   "fieldtype": "Attach Image",
+   "hidden": 1,
+   "in_preview": 1,
+   "label": "Image"
+  },
+  {
+   "fieldname": "column_break_13",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "Active\nDisabled",
+   "read_only": 1
+  },
+  {
+   "fieldname": "membership_status",
+   "fieldtype": "Select",
+   "in_standard_filter": 1,
+   "label": "Membership Status",
+   "options": "Non-Member\nMember",
+   "read_only": 1
+  },
+  {
+   "fieldname": "qatar_id",
+   "fieldtype": "Data",
+   "label": "Qatar ID"
+  },
+  {
+   "fieldname": "mobile_no",
+   "fieldtype": "Data",
+   "label": "Mobile",
+   "reqd": 1
+  },
+  {
+   "fieldname": "email",
+   "fieldtype": "Data",
+   "label": "Email",
+   "options": "Email"
+  },
+  {
+   "fieldname": "phone",
+   "fieldtype": "Data",
+   "label": "Phone",
+   "options": "Phone"
+  },
+  {
+   "default": "No",
+   "fieldname": "reg_on_app",
+   "fieldtype": "Select",
+   "label": "Registered on App",
+   "options": "\nYes\nNo",
+   "read_only": 1
+  },
+  {
+   "default": "SMS",
+   "fieldname": "notification_preference",
+   "fieldtype": "Select",
+   "label": "Notification Preference",
+   "options": "\nEmail\nSMS\nBoth"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "customer_details_section",
+   "fieldtype": "Section Break",
+   "label": "Customer Details"
+  },
+  {
+   "description": "If \"Link Customer to Client\" is checked in Club CRM Settings and an existing Customer is not selected then, a Customer will be created for this Client for recording transactions in Accounts module.",
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "customer_group",
+   "fieldtype": "Link",
+   "label": "Customer Group",
+   "options": "Customer Group"
+  },
+  {
+   "fieldname": "territory",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Territory",
+   "options": "Territory"
+  },
+  {
+   "fieldname": "column_break_26",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "default_currency",
+   "fieldtype": "Link",
+   "label": "Billing Currency",
+   "options": "Currency"
+  },
+  {
+   "fieldname": "default_price_list",
+   "fieldtype": "Link",
+   "label": "Default Price List",
+   "options": "Price List"
+  },
+  {
+   "fieldname": "language",
+   "fieldtype": "Link",
+   "label": "Print Language",
+   "options": "Language"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "personal_and_social_history_section",
+   "fieldtype": "Section Break",
+   "label": "Personal and Social History"
+  },
+  {
+   "fieldname": "occupation",
+   "fieldtype": "Data",
+   "label": "Occupation"
+  },
+  {
+   "fieldname": "column_break_32",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "marital_status",
+   "fieldtype": "Select",
+   "label": "Marital Status",
+   "options": "\nSingle\nMarried\nDivorced\nWidow"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "sb_relation",
+   "fieldtype": "Section Break",
+   "label": "Client Relation"
+  },
+  {
+   "fieldname": "client_relation",
+   "fieldtype": "Table",
+   "label": "Client Relation",
+   "options": "Client Relation"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "allergies_and_medical_history_section",
+   "fieldtype": "Section Break",
+   "label": "Allergies and Medical History"
+  },
+  {
+   "fieldname": "allergies",
+   "fieldtype": "Small Text",
+   "label": "Allergies"
+  },
+  {
+   "fieldname": "medication",
+   "fieldtype": "Small Text",
+   "label": "Medication"
+  },
+  {
+   "fieldname": "column_break_39",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "medical_history",
+   "fieldtype": "Small Text",
+   "label": "Medical History"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "more_info",
+   "fieldtype": "Section Break",
+   "label": "More Information",
+   "options": "fa fa-file-text"
+  },
+  {
+   "description": "Additional information regarding the client",
+   "fieldname": "client_details",
+   "fieldtype": "Text",
+   "label": "Client Details"
+  },
+  {
+   "fieldname": "referral_type",
+   "fieldtype": "Select",
+   "label": "Referral Type",
+   "options": "Family Member\nSocial Media\nWebsite\nFriends"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "options": "Client"
+  }
+ ],
+ "image_field": "image",
+ "modified": "2020-11-26 23:13:49.190530",
+ "modified_by": "Administrator",
+ "module": "Katara Club Api",
+ "name": "Client",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
