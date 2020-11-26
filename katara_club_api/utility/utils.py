@@ -2,9 +2,8 @@ import frappe
 
 def sync_update_data(update_from, to_update):	
 	for field in update_fields:
-		data = ""
 		data = 	update_from.get(update_field_map[update_from.doctype][field])
-		if data and update_field_map[to_update.doctype][field]:
+		if data and update_field_map[to_update.doctype][field] and update_field_map[update_from.doctype][field]:
 			frappe.db.set_value(
 				to_update.doctype,
 				to_update.name,
