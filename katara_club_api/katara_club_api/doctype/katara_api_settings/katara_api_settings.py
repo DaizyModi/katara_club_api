@@ -22,5 +22,11 @@ _custom_field = {
 			fieldtype='Check', hidden=0,
 			insert_after='qatar_id'
 		)
+	],
+	"Customer": [
+		dict(fieldname='user', label='User',
+			fieldtype='Link', hidden=0,
+			options='User'
+		)
 	]
 }
