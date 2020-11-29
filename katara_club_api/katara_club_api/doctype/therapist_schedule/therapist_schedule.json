@@ -32,12 +32,12 @@
   },
   {
    "fieldname": "therapist_schedule",
-   "fieldtype": "Link",
+   "fieldtype": "Table",
    "label": "Therapist Schedule",
-   "options": "Schedule"
+   "options": "Therapist Schedule Time Slot"
   }
  ],
- "modified": "2020-11-29 11:38:30.338241",
+ "modified": "2020-11-29 16:26:40.766126",
  "modified_by": "Administrator",
  "module": "Katara Club Api",
  "name": "Therapist Schedule",
