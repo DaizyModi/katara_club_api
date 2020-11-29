@@ -11,17 +11,19 @@
   {
    "fieldname": "schedule",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Schedule",
    "options": "Therapist Schedule"
   },
   {
    "fieldname": "service_unit",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Service Unit",
    "options": "Spa Service Unit"
   }
  ],
- "modified": "2020-11-29 11:36:53.287733",
+ "modified": "2020-11-29 16:38:26.715403",
  "modified_by": "Administrator",
  "module": "Katara Club Api",
  "name": "Therapist Service Unit Schedule",
