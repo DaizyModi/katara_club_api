@@ -30,16 +30,16 @@ class SpaAppointment(Document):
 		end_time = datetime.datetime.combine(getdate(self.appointment_date), get_time(self.appointment_time)) + datetime.timedelta(minutes=float(self.duration))
 		overlaps = frappe.db.sql("""
 		select
-			name, practitioner, patient, appointment_time, duration
+			name, spa_therapist, client_id, appointment_time, duration
 		from
-			`tabPatient Appointment`
+			`tabSpa Appointment`
 		where
 			appointment_date=%s and name!=%s and status NOT IN ("Closed", "Cancelled")
-			and (practitioner=%s or patient=%s) and
+			and (spa_therapist=%s or client_id=%s) and
 			((appointment_time<%s and appointment_time + INTERVAL duration MINUTE>%s) or
 			(appointment_time>%s and appointment_time<%s) or
 			(appointment_time=%s))
-		""", (self.appointment_date, self.name, self.practitioner, self.patient,
+		""", (self.appointment_date, self.name, self.spa_therapist, self.client_id,
 		self.appointment_time, end_time.time(), self.appointment_time, end_time.time(), self.appointment_time))
 
 		if overlaps:
@@ -50,27 +50,8 @@ class SpaAppointment(Document):
 		self.appointment_datetime = "%s %s" % (self.appointment_date, self.appointment_time or "00:00:00")
 
 	def after_insert(self):
-		if self.procedure_prescription:
-			frappe.db.set_value("Procedure Prescription", self.procedure_prescription, "appointment_booked", True)
-			if self.procedure_template:
-				comments = frappe.db.get_value("Procedure Prescription", self.procedure_prescription, "comments")
-				if comments:
-					frappe.db.set_value("Patient Appointment", self.name, "notes", comments)
-		# Check fee validity exists
-		appointment = self
-		validity_exist = validity_exists(appointment.practitioner, appointment.patient)
-		if validity_exist:
-			fee_validity = frappe.get_doc("Fee Validity", validity_exist[0][0])
-
-			# Check if the validity is valid
-			appointment_date = getdate(appointment.appointment_date)
-			if (fee_validity.valid_till >= appointment_date) and (fee_validity.visited < fee_validity.max_visit):
-				visited = fee_validity.visited + 1
-				frappe.db.set_value("Fee Validity", fee_validity.name, "visited", visited)
-				if fee_validity.ref_invoice:
-					frappe.db.set_value("Patient Appointment", appointment.name, "invoiced", True)
-				frappe.msgprint(_("{0} has fee validity till {1}").format(appointment.patient, fee_validity.valid_till))
-
+		
+		
 		if frappe.db.get_value("Healthcare Settings", None, "manage_appointment_invoice_automatically") == '1' and \
 			frappe.db.get_value("Patient Appointment", self.name, "invoiced") != 1:
 			invoice_appointment(self)
@@ -177,11 +158,11 @@ def exists_sales_invoice(appointment):
 	return False
 
 @frappe.whitelist()
-def get_availability_data(date, practitioner):
+def get_availability_data(date, spa_therapist):
 	"""
-	Get availability data of 'practitioner' on 'date'
+	Get availability data of 'Spa Therapist' on 'date'
 	:param date: Date to check in schedule
-	:param practitioner: Name of the practitioner
+	:param spa_therapist: Name of the spa_therapist
 	:return: dict containing a list of available slots, list of appointments and time of appointments
 	"""
 
@@ -190,21 +171,21 @@ def get_availability_data(date, practitioner):
 
 	available_slots = []
 	slot_details = []
-	practitioner_schedule = None
+	spa_therapist_schedule = None
 
 	employee = None
 
-	practitioner_obj = frappe.get_doc("Healthcare Practitioner", practitioner)
+	spa_therapist_obj = frappe.get_doc("Spa Therapist", spa_therapist)
 
 	# Get practitioner employee relation
-	if practitioner_obj.employee:
-		employee = practitioner_obj.employee
-	elif practitioner_obj.user_id:
+	if spa_therapist_obj.employee:
+		employee = spa_therapist_obj.employee
+	elif spa_therapist_obj.user:
 		if frappe.db.exists({
 			"doctype": "Employee",
-			"user_id": practitioner_obj.user_id
+			"user_id": spa_therapist_obj.user
 			}):
-			employee = frappe.get_doc("Employee", {"user_id": practitioner_obj.user_id}).name
+			employee = frappe.get_doc("Employee", {"user_id": spa_therapist_obj.user}).name
 
 	if employee:
 		# Check if it is Holiday
@@ -217,21 +198,21 @@ def get_availability_data(date, practitioner):
 			and docstatus = 1""", (employee, date), as_dict=True)
 		if leave_record:
 			if leave_record[0].half_day:
-				frappe.throw(_("{0} on Half day Leave on {1}").format(practitioner, date))
+				frappe.throw(_("{0} on Half day Leave on {1}").format(spa_therapist, date))
 			else:
-				frappe.throw(_("{0} on Leave on {1}").format(practitioner, date))
+				frappe.throw(_("{0} on Leave on {1}").format(spa_therapist, date))
 
 	# get practitioners schedule
-	if practitioner_obj.practitioner_schedules:
-		for schedule in practitioner_obj.practitioner_schedules:
+	if spa_therapist_obj.service_unit_schedule:
+		for schedule in spa_therapist_obj.service_unit_schedule:
 			if schedule.schedule:
-				practitioner_schedule = frappe.get_doc("Practitioner Schedule", schedule.schedule)
+				spa_therapist_schedule = frappe.get_doc("Therapist Schedule", schedule.schedule)
 			else:
-				frappe.throw(_("{0} does not have a Healthcare Practitioner Schedule. Add it in Healthcare Practitioner master".format(practitioner)))
+				frappe.throw(_("{0} does not have a Therapist Schedule. Add it in Spa Therapist master".format(spa_therapist)))
 
-			if practitioner_schedule:
+			if spa_therapist_schedule:
 				available_slots = []
-				for t in practitioner_schedule.time_slots:
+				for t in spa_therapist_schedule.therapist_schedule:
 					if weekday == t.day:
 						available_slots.append(t)
 
@@ -240,36 +221,36 @@ def get_availability_data(date, practitioner):
 
 					if schedule.service_unit:
 						slot_name  = schedule.schedule+" - "+schedule.service_unit
-						allow_overlap = frappe.get_value('Healthcare Service Unit', schedule.service_unit, 'overlap_appointments')
+						allow_overlap = frappe.get_value('Spa Service Unit', schedule.service_unit, 'overlap_appointments')
 						if allow_overlap:
 							# fetch all appointments to practitioner by service unit
 							appointments = frappe.get_all(
-								"Patient Appointment",
-								filters={"practitioner": practitioner, "service_unit": schedule.service_unit, "appointment_date": date, "status": ["not in",["Cancelled"]]},
+								"Spa Appointment",
+								filters={"spa_therapist": spa_therapist, "spa_service_unit": schedule.service_unit, "appointment_date": date, "status": ["not in",["Cancelled"]]},
 								fields=["name", "appointment_time", "duration", "status"])
 						else:
 							# fetch all appointments to service unit
 							appointments = frappe.get_all(
-								"Patient Appointment",
-								filters={"service_unit": schedule.service_unit, "appointment_date": date, "status": ["not in",["Cancelled"]]},
+								"Spa Appointment",
+								filters={"spa_service_unit": schedule.service_unit, "appointment_date": date, "status": ["not in",["Cancelled"]]},
 								fields=["name", "appointment_time", "duration", "status"])
 					else:
 						slot_name = schedule.schedule
 						# fetch all appointments to practitioner without service unit
 						appointments = frappe.get_all(
-							"Patient Appointment",
-							filters={"practitioner": practitioner, "service_unit": '', "appointment_date": date, "status": ["not in",["Cancelled"]]},
+							"Spa Appointment",
+							filters={"spa_therapist": spa_therapist, "service_unit": '', "appointment_date": date, "status": ["not in",["Cancelled"]]},
 							fields=["name", "appointment_time", "duration", "status"])
 
 					slot_details.append({"slot_name":slot_name, "service_unit":schedule.service_unit,
 						"avail_slot":available_slots, 'appointments': appointments})
 
 	else:
-		frappe.throw(_("{0} does not have a Healthcare Practitioner Schedule. Add it in Healthcare Practitioner master".format(practitioner)))
+		frappe.throw(_("{0} does not have a Therapist Schedule. Add it in Spa Therapist master".format(spa_therapist)))
 
 	if not available_slots and not slot_details:
 		# TODO: return available slots in nearby dates
-		frappe.throw(_("Healthcare Practitioner not available on {0}").format(weekday))
+		frappe.throw(_("Spa Therapist not available on {0}").format(weekday))
 
 	return {
 		"slot_details": slot_details

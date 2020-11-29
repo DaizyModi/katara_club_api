@@ -2,39 +2,7 @@
 // For license information, please see license.txt
 frappe.provide("erpnext.queries");
 frappe.ui.form.on('Spa Appointment', {
-	setup: function(frm) {
-		frm.custom_make_buttons = {
-			'Vital Signs': 'Vital Signs',
-			'Patient Encounter': 'Patient Encounter'
-		};
-	},
 	refresh: function(frm) {
-		frm.set_query("patient", function () {
-			return {
-				filters: {"status": "Active"}
-			};
-		});
-		frm.set_query("practitioner", function() {
-			return {
-				filters: {
-					'department': frm.doc.department
-				}
-			};
-		});
-		frm.set_query("service_unit", function(){
-			return {
-				filters: {
-					"is_group": false,
-					"allow_appointments": true
-				}
-			};
-		});
-		if(frm.doc.patient){
-			frm.add_custom_button(__('Patient History'), function() {
-				frappe.route_options = {"patient": frm.doc.patient};
-				frappe.set_route("patient_history");
-			},__("View"));
-		}
 		if(frm.doc.status == "Open"){
 			frm.add_custom_button(__('Cancel'), function() {
 				btn_update_status(frm, "Cancelled");
@@ -42,20 +10,6 @@ frappe.ui.form.on('Spa Appointment', {
 			frm.add_custom_button(__('Reschedule'), function() {
 				check_and_set_availability(frm);
 			});
-			if(frm.doc.procedure_template){
-				frm.add_custom_button(__("Procedure"),function(){
-					btn_create_procedure(frm);
-				},"Create");
-			}
-			else{
-				frm.add_custom_button(__("Patient Encounter"),function(){
-					btn_create_encounter(frm);
-				},"Create");
-			}
-
-			frm.add_custom_button(__('Vital Signs'), function() {
-				btn_create_vital_signs(frm);
-			},"Create");
 		}
 		if(frm.doc.status == "Scheduled" && !frm.doc.__islocal){
 			frm.add_custom_button(__('Cancel'), function() {
@@ -64,20 +18,6 @@ frappe.ui.form.on('Spa Appointment', {
 			frm.add_custom_button(__('Reschedule'), function() {
 				check_and_set_availability(frm);
 			});
-			if(frm.doc.procedure_template){
-				frm.add_custom_button(__("Procedure"),function(){
-					btn_create_procedure(frm);
-				},"Create");
-			}
-			else{
-				frm.add_custom_button(__("Patient Encounter"),function(){
-					btn_create_encounter(frm);
-				},"Create");
-			}
-
-			frm.add_custom_button(__('Vital Signs'), function() {
-				btn_create_vital_signs(frm);
-			},"Create");
 		}
 		if(frm.doc.status == "Pending"){
 			frm.add_custom_button(__('Set Open'), function() {
@@ -87,7 +27,6 @@ frappe.ui.form.on('Spa Appointment', {
 				btn_update_status(frm, "Cancelled");
 			});
 		}
-		frm.set_df_property("get_procedure_from_encounter", "read_only", frm.doc.__islocal ? 0 : 1);
 		frappe.db.get_value('Healthcare Settings', {name: 'Healthcare Settings'}, 'manage_appointment_invoice_automatically', (r) => {
 			if(r.manage_appointment_invoice_automatically == 1){
 				frm.set_df_property("mode_of_payment", "hidden", 0);
@@ -111,9 +50,6 @@ frappe.ui.form.on('Spa Appointment', {
 			frm.set_value("appointment_time", null);
 			frm.disable_save();
 		}
-	},
-	get_procedure_from_encounter: function(frm) {
-		get_procedure_prescribed(frm);
 	}
 });
 
@@ -133,13 +69,11 @@ var check_and_set_availability = function(frm) {
 	}
 
 	function show_availability() {
-		let selected_practitioner = '';
+		let selected_spa_therapist = '';
 		var d = new frappe.ui.Dialog({
 			title: __("Available slots"),
 			fields: [
-				{ fieldtype: 'Link', options: 'Medical Department', reqd:1, fieldname: 'department', label: 'Medical Department'},
-				{ fieldtype: 'Column Break'},
-				{ fieldtype: 'Link', options: 'Healthcare Practitioner', reqd:1, fieldname: 'practitioner', label: 'Healthcare Practitioner'},
+				{ fieldtype: 'Link', options: 'Spa Therapist', reqd:1, fieldname: 'spa_therapist', label: 'Spa Therapist'},
 				{ fieldtype: 'Column Break'},
 				{ fieldtype: 'Date', reqd:1, fieldname: 'appointment_date', label: 'Date'},
 				{ fieldtype: 'Section Break'},
@@ -148,12 +82,11 @@ var check_and_set_availability = function(frm) {
 			primary_action_label: __("Book"),
 			primary_action: function() {
 				frm.set_value('appointment_time', selected_slot);
-				frm.set_value('service_unit', service_unit || '');
+				frm.set_value('spa_service_unit', service_unit || '');
 				if (!frm.doc.duration) {
 					frm.set_value('duration', duration);
 				}
-				frm.set_value('practitioner', d.get_value('practitioner'));
-				frm.set_value('department', d.get_value('department'));
+				frm.set_value('spa_therapist', d.get_value('spa_therapist'));
 				frm.set_value('appointment_date', d.get_value('appointment_date'));
 				d.hide();
 				frm.enable_save();
@@ -164,26 +97,9 @@ var check_and_set_availability = function(frm) {
 		});
 
 		d.set_values({
-			'department': frm.doc.department,
-			'practitioner': frm.doc.practitioner,
+			'spa_therapist': frm.doc.spa_therapist,
 			'appointment_date': frm.doc.appointment_date
 		});
-
-		d.fields_dict["department"].df.onchange = () => {
-			d.set_values({
-				'practitioner': ''
-			});
-			var department = d.get_value('department');
-			if(department){
-				d.fields_dict.practitioner.get_query = function() {
-					return {
-						filters: {
-							"department": department
-						}
-					};
-				};
-			}
-		};
 
 		// disable dialog action initially
 		d.get_primary_btn().attr('disabled', true);
@@ -195,9 +111,9 @@ var check_and_set_availability = function(frm) {
 		d.fields_dict["appointment_date"].df.onchange = () => {
 			show_slots(d, fd);
 		};
-		d.fields_dict["practitioner"].df.onchange = () => {
-			if(d.get_value('practitioner') && d.get_value('practitioner') != selected_practitioner){
-				selected_practitioner = d.get_value('practitioner');
+		d.fields_dict["spa_therapist"].df.onchange = () => {
+			if(d.get_value('spa_therapist') && d.get_value('spa_therapist') != selected_spa_therapist){
+				selected_spa_therapist = d.get_value('spa_therapist');
 				show_slots(d, fd);
 			}
 		};
@@ -205,12 +121,12 @@ var check_and_set_availability = function(frm) {
 	}
 
 	function show_slots(d, fd) {
-		if (d.get_value('appointment_date') && d.get_value('practitioner')){
+		if (d.get_value('appointment_date') && d.get_value('spa_therapist')){
 			fd.available_slots.html("");
 			frappe.call({
-				method: 'erpnext.healthcare.doctype.patient_appointment.patient_appointment.get_availability_data',
+				method: 'katara_club_api.katara_club_api.doctype.spa_appointment.spa_appointment.get_availability_data',
 				args: {
-					practitioner: d.get_value('practitioner'),
+					spa_therapist: d.get_value('spa_therapist'),
 					date: d.get_value('appointment_date')
 				},
 				callback: (r) => {
@@ -284,115 +200,9 @@ var check_and_set_availability = function(frm) {
 				freeze_message: __("Fetching records......")
 			});
 		}else{
-			fd.available_slots.html("Appointment date and Healthcare Practitioner are Mandatory".bold());
+			fd.available_slots.html("Appointment date and Spa Therapist are Mandatory".bold());
 		}
 	}
-};
-
-var get_procedure_prescribed = function(frm){
-	if (frm.doc.patient) {
-		frappe.call({
-			method:"erpnext.healthcare.doctype.patient_appointment.patient_appointment.get_procedure_prescribed",
-			args: {patient: frm.doc.patient},
-			callback: function(r) {
-				if (r.message && r.message.length) {
-					show_procedure_templates(frm, r.message);
-				} else {
-					frappe.msgprint({
-						title: __('Not Found'),
-						message: __('No Prescribed Procedures found for the selected Patient')
-					});
-				}
-			}
-		});
-	}
-	else{
-		frappe.msgprint(__("Please select Patient to get prescribed procedure"));
-	}
-};
-
-var show_procedure_templates = function(frm, result){
-	var d = new frappe.ui.Dialog({
-		title: __("Prescribed Procedures"),
-		fields: [
-			{
-				fieldtype: "HTML", fieldname: "procedure_template"
-			}
-		]
-	});
-	var html_field = d.fields_dict.procedure_template.$wrapper;
-	html_field.empty();
-	$.each(result, function(x, y){
-		var row = $(repl('<div class="col-xs-12" style="padding-top:12px; text-align:center;" >\
-		<div class="col-xs-5"> %(encounter)s <br> %(consulting_practitioner)s <br> %(encounter_date)s </div>\
-		<div class="col-xs-5"> %(procedure_template)s <br>%(practitioner)s  <br> %(date)s</div>\
-		<div class="col-xs-2">\
-		<a data-name="%(name)s" data-procedure-template="%(procedure_template)s"\
-		data-encounter="%(encounter)s" data-practitioner="%(practitioner)s"\
-		data-date="%(date)s"  data-department="%(department)s">\
-		<button class="btn btn-default btn-xs">Add\
-		</button></a></div></div><div class="col-xs-12"><hr/><div/>', {name:y[0], procedure_template: y[1],
-				encounter:y[2], consulting_practitioner:y[3], encounter_date:y[4],
-				practitioner:y[5]? y[5]:'', date: y[6]? y[6]:'', department: y[7]? y[7]:''})).appendTo(html_field);
-		row.find("a").click(function() {
-			frm.doc.procedure_template = $(this).attr("data-procedure-template");
-			frm.doc.procedure_prescription = $(this).attr("data-name");
-			frm.doc.practitioner = $(this).attr("data-practitioner");
-			frm.doc.appointment_date = $(this).attr("data-date");
-			frm.doc.department = $(this).attr("data-department");
-			refresh_field("procedure_template");
-			refresh_field("procedure_prescription");
-			refresh_field("appointment_date");
-			refresh_field("practitioner");
-			refresh_field("department");
-			d.hide();
-			return false;
-		});
-	});
-	if(!result){
-		var msg = "There are no procedure prescribed for "+frm.doc.patient;
-		$(repl('<div class="col-xs-12" style="padding-top:20px;" >%(msg)s</div></div>', {msg: msg})).appendTo(html_field);
-	}
-	d.show();
-};
-
-var btn_create_procedure = function(frm){
-	var doc = frm.doc;
-	frappe.call({
-		method:"erpnext.healthcare.doctype.clinical_procedure.clinical_procedure.create_procedure",
-		args: {appointment: doc.name},
-		callback: function(data){
-			if(!data.exc){
-				var doclist = frappe.model.sync(data.message);
-				frappe.set_route("Form", doclist[0].doctype, doclist[0].name);
-			}
-		}
-	});
-};
-
-var btn_create_encounter = function(frm){
-	var doc = frm.doc;
-	frappe.call({
-		method:"erpnext.healthcare.doctype.patient_appointment.patient_appointment.create_encounter",
-		args: {appointment: doc.name},
-		callback: function(data){
-			if(!data.exc){
-				var doclist = frappe.model.sync(data.message);
-				frappe.set_route("Form", doclist[0].doctype, doclist[0].name);
-			}
-		}
-	});
-};
-
-var btn_create_vital_signs = function (frm) {
-	if(!frm.doc.patient){
-		frappe.throw(__("Please select patient"));
-	}
-	frappe.route_options = {
-		"patient": frm.doc.patient,
-		"appointment": frm.doc.name,
-	};
-	frappe.new_doc("Vital Signs");
 };
 
 var btn_update_status = function(frm, status){

@@ -12,7 +12,8 @@
   "is_active",
   "disable",
   "have_machine",
-  "machine"
+  "machine",
+  "overlap_appointments"
  ],
  "fields": [
   {
@@ -62,9 +63,15 @@
    "fieldtype": "Link",
    "label": "Machine",
    "options": "Spa Machine"
+  },
+  {
+   "default": "0",
+   "fieldname": "overlap_appointments",
+   "fieldtype": "Check",
+   "label": "Overlap Appointments"
   }
  ],
- "modified": "2020-11-29 11:30:21.133372",
+ "modified": "2020-11-30 03:18:41.528478",
  "modified_by": "Administrator",
  "module": "Katara Club Api",
  "name": "Spa Service Unit",

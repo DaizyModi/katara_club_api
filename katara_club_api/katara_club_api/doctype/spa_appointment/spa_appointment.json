@@ -122,7 +122,8 @@
   {
    "fieldname": "duration",
    "fieldtype": "Data",
-   "label": "Duration"
+   "label": "Duration",
+   "read_only": 1
   },
   {
    "fieldname": "rate",
@@ -138,7 +139,8 @@
    "fieldname": "spa_therapist",
    "fieldtype": "Link",
    "label": "Spa Therapist",
-   "options": "Spa Therapist"
+   "options": "Spa Therapist",
+   "read_only": 1
   },
   {
    "fieldname": "treatment_duration",
@@ -149,7 +151,8 @@
    "fieldname": "spa_service_unit",
    "fieldtype": "Link",
    "label": "SPA Service Unit",
-   "options": "Spa Service Unit"
+   "options": "Spa Service Unit",
+   "read_only": 1
   },
   {
    "fieldname": "details_section",
@@ -169,12 +172,14 @@
   {
    "fieldname": "appointment_date",
    "fieldtype": "Data",
-   "label": "Appointment Date"
+   "label": "Appointment Date",
+   "read_only": 1
   },
   {
    "fieldname": "appointment_time",
    "fieldtype": "Data",
-   "label": "Appointment Time"
+   "label": "Appointment Time",
+   "read_only": 1
   },
   {
    "fieldname": "more_info_section",
@@ -200,7 +205,7 @@
    "fieldtype": "Data"
   }
  ],
- "modified": "2020-11-29 11:52:04.073205",
+ "modified": "2020-11-30 03:38:03.436406",
  "modified_by": "Administrator",
  "module": "Katara Club Api",
  "name": "Spa Appointment",
