@@ -1,0 +1,175 @@
+{
+ "autoname": "naming_series:",
+ "creation": "2020-11-29 11:22:12.834130",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "first_name",
+  "middle_name",
+  "last_name",
+  "full_name",
+  "gender",
+  "column_break_7",
+  "status",
+  "mobile",
+  "phone",
+  "email",
+  "image",
+  "employee_and_user_details_section",
+  "employee",
+  "department",
+  "user",
+  "designation_column",
+  "appointments_section",
+  "appointment_type",
+  "schedule_section",
+  "service_unit_schedule",
+  "charges"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "SPA-THR-.####"
+  },
+  {
+   "fieldname": "first_name",
+   "fieldtype": "Data",
+   "label": "First Name"
+  },
+  {
+   "fieldname": "middle_name",
+   "fieldtype": "Data",
+   "label": "Middle Name"
+  },
+  {
+   "fieldname": "last_name",
+   "fieldtype": "Data",
+   "label": "Last Name"
+  },
+  {
+   "fieldname": "full_name",
+   "fieldtype": "Data",
+   "label": "Full Name"
+  },
+  {
+   "fieldname": "gender",
+   "fieldtype": "Link",
+   "label": "Gender",
+   "options": "Gender"
+  },
+  {
+   "fieldname": "column_break_7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "\nActive\nDisabled",
+   "reqd": 1
+  },
+  {
+   "fieldname": "mobile",
+   "fieldtype": "Data",
+   "label": "Mobile"
+  },
+  {
+   "fieldname": "phone",
+   "fieldtype": "Data",
+   "label": "Phone"
+  },
+  {
+   "fieldname": "email",
+   "fieldtype": "Data",
+   "label": "Email"
+  },
+  {
+   "fieldname": "image",
+   "fieldtype": "Data",
+   "label": "Image"
+  },
+  {
+   "fieldname": "employee_and_user_details_section",
+   "fieldtype": "Section Break",
+   "label": "Employee and User Details"
+  },
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "label": "Employee",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "Department"
+  },
+  {
+   "fieldname": "user",
+   "fieldtype": "Link",
+   "label": "User",
+   "options": "User"
+  },
+  {
+   "fieldname": "designation_column",
+   "fieldtype": "Column Break",
+   "label": "Designation"
+  },
+  {
+   "fieldname": "appointments_section",
+   "fieldtype": "Section Break",
+   "label": "Appointments"
+  },
+  {
+   "fieldname": "appointment_type",
+   "fieldtype": "Table",
+   "label": "Appointment Type",
+   "options": "Appointment Type Item"
+  },
+  {
+   "fieldname": "schedule_section",
+   "fieldtype": "Section Break",
+   "label": "Schedule"
+  },
+  {
+   "fieldname": "service_unit_schedule",
+   "fieldtype": "Table",
+   "label": "Service Unit Schedule",
+   "options": "Therapist Service Unit Schedule"
+  },
+  {
+   "fieldname": "charges",
+   "fieldtype": "Data",
+   "label": "Charges"
+  }
+ ],
+ "modified": "2020-11-29 11:54:23.829546",
+ "modified_by": "Administrator",
+ "module": "Katara Club Api",
+ "name": "Spa Therapist",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

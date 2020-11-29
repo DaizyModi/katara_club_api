@@ -4,7 +4,38 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "series"
+  "series",
+  "date",
+  "column_break_3",
+  "status",
+  "customer_details_section",
+  "client_id",
+  "column_break_7",
+  "client_name",
+  "membership_status",
+  "gender",
+  "mobile_number",
+  "appointment_details_section",
+  "spa_item",
+  "spa_menu_group",
+  "spa_menu_category",
+  "column_break_16",
+  "duration",
+  "rate",
+  "therapist_details",
+  "spa_therapist",
+  "treatment_duration",
+  "spa_service_unit",
+  "details_section",
+  "spa_appointment_type",
+  "column_break_25",
+  "appointment_date",
+  "appointment_time",
+  "more_info_section",
+  "sales_invoice",
+  "column_break_30",
+  "note",
+  "data_32"
  ],
  "fields": [
   {
@@ -12,9 +43,164 @@
    "fieldtype": "Select",
    "label": "Series",
    "options": "SPA-APP-.YYYY.-"
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Datetime",
+   "label": "Date"
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Open\nScheduled\nComplete\nCancelled"
+  },
+  {
+   "fieldname": "customer_details_section",
+   "fieldtype": "Section Break",
+   "label": "Customer Details"
+  },
+  {
+   "fieldname": "client_id",
+   "fieldtype": "Link",
+   "label": "Client ID",
+   "options": "Client"
+  },
+  {
+   "fieldname": "column_break_7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "client_name",
+   "fieldtype": "Data",
+   "label": "Client Name"
+  },
+  {
+   "fieldname": "membership_status",
+   "fieldtype": "Data",
+   "label": "Membership Status"
+  },
+  {
+   "fieldname": "gender",
+   "fieldtype": "Data",
+   "label": "Gender"
+  },
+  {
+   "fieldname": "mobile_number",
+   "fieldtype": "Data",
+   "label": "Mobile Number"
+  },
+  {
+   "fieldname": "appointment_details_section",
+   "fieldtype": "Section Break",
+   "label": "Appointment Details"
+  },
+  {
+   "fieldname": "spa_item",
+   "fieldtype": "Link",
+   "label": "Spa Item",
+   "options": "Spa Menu"
+  },
+  {
+   "fieldname": "spa_menu_group",
+   "fieldtype": "Data",
+   "label": "Spa Menu Group"
+  },
+  {
+   "fieldname": "spa_menu_category",
+   "fieldtype": "Data",
+   "label": "Spa Menu Category"
+  },
+  {
+   "fieldname": "column_break_16",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "duration",
+   "fieldtype": "Data",
+   "label": "Duration"
+  },
+  {
+   "fieldname": "rate",
+   "fieldtype": "Data",
+   "label": "Rate"
+  },
+  {
+   "fieldname": "therapist_details",
+   "fieldtype": "Data",
+   "label": "Therapist Details"
+  },
+  {
+   "fieldname": "spa_therapist",
+   "fieldtype": "Link",
+   "label": "Spa Therapist",
+   "options": "Spa Therapist"
+  },
+  {
+   "fieldname": "treatment_duration",
+   "fieldtype": "Data",
+   "label": "Treatment Duration"
+  },
+  {
+   "fieldname": "spa_service_unit",
+   "fieldtype": "Link",
+   "label": "SPA Service Unit",
+   "options": "Spa Service Unit"
+  },
+  {
+   "fieldname": "details_section",
+   "fieldtype": "Section Break",
+   "label": "Details"
+  },
+  {
+   "fieldname": "spa_appointment_type",
+   "fieldtype": "Link",
+   "label": "Spa Appointment Type",
+   "options": "Spa Appointment Type"
+  },
+  {
+   "fieldname": "column_break_25",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "appointment_date",
+   "fieldtype": "Data",
+   "label": "Appointment Date"
+  },
+  {
+   "fieldname": "appointment_time",
+   "fieldtype": "Data",
+   "label": "Appointment Time"
+  },
+  {
+   "fieldname": "more_info_section",
+   "fieldtype": "Section Break",
+   "label": "More Info"
+  },
+  {
+   "fieldname": "sales_invoice",
+   "fieldtype": "Data",
+   "label": "Sales Invoice"
+  },
+  {
+   "fieldname": "column_break_30",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "note",
+   "fieldtype": "Data",
+   "label": "Note"
+  },
+  {
+   "fieldname": "data_32",
+   "fieldtype": "Data"
   }
  ],
- "modified": "2020-11-29 10:54:31.646014",
+ "modified": "2020-11-29 11:52:04.073205",
  "modified_by": "Administrator",
  "module": "Katara Club Api",
  "name": "Spa Appointment",

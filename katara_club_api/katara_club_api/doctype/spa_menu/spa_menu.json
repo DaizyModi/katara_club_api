@@ -1,0 +1,112 @@
+{
+ "creation": "2020-11-29 11:45:56.995536",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "disabled",
+  "column_break_2",
+  "show_on_app",
+  "has_add_ons",
+  "details_section",
+  "spa_item_name",
+  "spa_menu_group",
+  "spa_menu_category",
+  "column_break_9",
+  "description",
+  "other_details_section",
+  "duration",
+  "turn_around_time"
+ ],
+ "fields": [
+  {
+   "default": "0",
+   "fieldname": "disabled",
+   "fieldtype": "Check",
+   "label": "Disabled"
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "show_on_app",
+   "fieldtype": "Check",
+   "label": "Show on App"
+  },
+  {
+   "default": "0",
+   "fieldname": "has_add_ons",
+   "fieldtype": "Check",
+   "label": "Has Add ons"
+  },
+  {
+   "fieldname": "details_section",
+   "fieldtype": "Section Break",
+   "label": "Details"
+  },
+  {
+   "fieldname": "spa_item_name",
+   "fieldtype": "Data",
+   "label": "Spa Item Name"
+  },
+  {
+   "fieldname": "spa_menu_group",
+   "fieldtype": "Data",
+   "label": "Spa Menu Group"
+  },
+  {
+   "fieldname": "spa_menu_category",
+   "fieldtype": "Data",
+   "label": "Spa Menu Category"
+  },
+  {
+   "fieldname": "column_break_9",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "Description"
+  },
+  {
+   "fieldname": "other_details_section",
+   "fieldtype": "Section Break",
+   "label": "Other Details"
+  },
+  {
+   "fieldname": "duration",
+   "fieldtype": "Data",
+   "label": "Duration"
+  },
+  {
+   "fieldname": "turn_around_time",
+   "fieldtype": "Data",
+   "label": "Turn Around Time "
+  }
+ ],
+ "modified": "2020-11-29 11:45:56.995536",
+ "modified_by": "Administrator",
+ "module": "Katara Club Api",
+ "name": "Spa Menu",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

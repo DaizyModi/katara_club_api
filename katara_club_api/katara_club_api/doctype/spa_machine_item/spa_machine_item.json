@@ -1,0 +1,28 @@
+{
+ "creation": "2020-11-29 11:27:38.642005",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "machine_name"
+ ],
+ "fields": [
+  {
+   "fieldname": "machine_name",
+   "fieldtype": "Link",
+   "label": "Machine Name",
+   "options": "Spa Machine"
+  }
+ ],
+ "istable": 1,
+ "modified": "2020-11-29 11:27:38.642005",
+ "modified_by": "Administrator",
+ "module": "Katara Club Api",
+ "name": "Spa Machine Item",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
