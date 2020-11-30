@@ -75,5 +75,5 @@ def user_sign_up(email, first_name, last_name, gender, dob, qatar_id, mobile_no,
 
 @frappe.whitelist()
 def update_password(pwd):
-	frappe.set_value("User",frappe.session.user,"new_password",pwd)
+	frappe.db.set_value("User",frappe.session.user,"new_password",pwd)
 	return 1,_("Success")
