@@ -6,14 +6,14 @@ from __future__ import unicode_literals
 import frappe
 from frappe.model.document import Document
 import json
-from frappe.utils import getdate, add_days, get_time
+from frappe.utils import getdate, add_days, get_time,today
 from frappe import _
 import datetime
 from frappe.core.doctype.sms_settings.sms_settings import send_sms
 from erpnext.hr.doctype.employee.employee import is_holiday
 from erpnext.healthcare.doctype.healthcare_settings.healthcare_settings import get_receivable_account,get_income_account
 from erpnext.healthcare.utils import validity_exists, service_item_and_practitioner_charge
-
+from erpnext.accounts.doctype.payment_entry.payment_entry import get_payment_entry
 
 class SpaAppointment(Document):
 	def on_update(self):
@@ -45,6 +45,8 @@ class SpaAppointment(Document):
 		if overlaps:
 			frappe.throw(_("""Appointment overlaps with {0}.<br> {1} has appointment scheduled
 			with {2} at {3} having {4} minute(s) duration.""").format(overlaps[0][0], overlaps[0][1], overlaps[0][2], overlaps[0][3], overlaps[0][4]))
+		
+		self.invoicing()
 
 	def set_appointment_datetime(self):
 		self.appointment_datetime = "%s %s" % (self.appointment_date, self.appointment_time or "00:00:00")
@@ -57,6 +59,68 @@ class SpaAppointment(Document):
 			invoice_appointment(self)
 
 		send_confirmation_msg(self)
+	
+	def invoicing(self):
+		if self.status == "Paid" and not self.sales_invoice:
+			"""
+				create sales_invoice
+			"""
+			if not self.client_id:
+				frappe.msgprint("Client Is Not Selected Sales Invoice will not create")
+				return
+
+			customer = frappe.get_value("Client",self.client_id,"customer")
+			if not customer:
+				frappe.msgprint("Customer is not link with Client Sales Innvoice will not create")
+				return
+			
+			si = frappe.get_doc({
+				'doctype': 'Sales Invoice',
+				'customer': customer,
+				'due_date': today()
+			})
+			plan = frappe.get_value("Item",self.invoice_item,"name")
+			if not plan:
+				frappe.msgprint("Invoice Item Not Found, Sales Invoice will not create")
+			si.append("items",{
+				"item_code": plan,
+				"qty": 1,
+				"rate": get_item_price(plan)
+			})
+			
+			si.insert(ignore_permissions=True)
+			si.submit()
+			self.sales_invoice = si.name
+			frappe.msgprint("Sales Invoice Created")
+			
+		if self.payment_status == "Paid" and not self.payment_entry \
+		and self.sales_invoice:
+			"""
+				create payment_entry
+			"""
+			doc_status = frappe.get_value("Sales Invoice",self.sales_invoice,"docstatus")
+			if doc_status != 1:
+				frappe.msgprint("Please Submit Sales Invoice To Create Payment Entry")
+			if doc_status == 1:
+				pe = get_payment_entry("Sales Invoice",self.sales_invoice)
+				
+				pe.mode_of_payment = "Cash"
+				pe.reference_no = "1"
+				pe.reference_date = today()
+				frappe.errprint(pe.mode_of_payment)
+				pe.insert(ignore_permissions=True)
+				pe.submit()
+				self.payment_entry = pe.name
+				frappe.msgprint("Payment Entry Created")
+def get_item_price(item):
+    item_price = frappe.db.get_value("Item Price", 
+        {
+            "price_list":"Standard Selling", 
+            "item_code": item, 
+            "selling": True
+        }, 
+        "price_list_rate")
+    return item_price
 
 @frappe.whitelist()
 def invoice_appointment(appointment_doc):

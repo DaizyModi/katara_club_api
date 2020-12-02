@@ -17,6 +17,7 @@
   "mobile_number",
   "appointment_details_section",
   "spa_item",
+  "invoice_item",
   "spa_menu_group",
   "spa_menu_category",
   "column_break_16",
@@ -33,6 +34,7 @@
   "appointment_time",
   "more_info_section",
   "sales_invoice",
+  "payment_entry",
   "column_break_30",
   "note",
   "data_32"
@@ -57,7 +59,7 @@
    "fieldname": "status",
    "fieldtype": "Select",
    "label": "Status",
-   "options": "Open\nScheduled\nComplete\nCancelled"
+   "options": "Open\nScheduled\nPaid\nComplete\nCancelled"
   },
   {
    "fieldname": "customer_details_section",
@@ -203,9 +205,22 @@
   {
    "fieldname": "data_32",
    "fieldtype": "Data"
+  },
+  {
+   "fieldname": "invoice_item",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Invoice Item",
+   "options": "Item",
+   "reqd": 1
+  },
+  {
+   "fieldname": "payment_entry",
+   "fieldtype": "Data",
+   "label": "Payment Entry"
   }
  ],
- "modified": "2020-11-30 03:38:03.436406",
+ "modified": "2020-12-02 08:32:03.605605",
  "modified_by": "Administrator",
  "module": "Katara Club Api",
  "name": "Spa Appointment",

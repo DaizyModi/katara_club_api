@@ -33,6 +33,7 @@ def memberships_application_validate(memberships_application, method):
 			si.apply_discount_on = "Grand Total"
 			si.discount_amount = memberships_application.discount_amount 
 		si.insert(ignore_permissions=True)
+		si.submit()
 		memberships_application.sales_invoice = si.name
 		frappe.msgprint("Sales Invoice Created")
 		
@@ -52,9 +53,9 @@ def memberships_application_validate(memberships_application, method):
 			pe.reference_date = today()
 			frappe.errprint(pe.mode_of_payment)
 			pe.insert(ignore_permissions=True)
+			pe.submit()
 			memberships_application.payment_entry = pe.name
 			frappe.msgprint("Payment Entry Created")
-		pass
 def get_item_price(item):
     item_price = frappe.db.get_value("Item Price", 
         {
