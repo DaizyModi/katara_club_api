@@ -3,6 +3,22 @@
 frappe.provide("erpnext.queries");
 frappe.ui.form.on('Spa Appointment', {
 	refresh: function(frm) {
+
+		if (frm.is_new()) {
+			frm.page.set_primary_action(__('Check Availability'), function() {
+				if (!frm.doc.client_id) {
+					frappe.msgprint({
+						title: __('Not Allowed'),
+						message: __('Please select Client first'),
+						indicator: 'red'
+					});
+				} else {
+					check_and_set_availability(frm);
+				}
+			});
+		} else {
+			frm.page.set_primary_action(__('Save'), () => frm.save());
+		}
 		if(frm.doc.status == "Open"){
 			frm.add_custom_button(__('Cancel'), function() {
 				btn_update_status(frm, "Cancelled");
@@ -209,74 +225,7 @@ var btn_update_status = function(frm, status){
 	var doc = frm.doc;
 	frappe.confirm(__('Are you sure you want to cancel this appointment?'),
 		function() {
-			frappe.call({
-				method:
-				"erpnext.healthcare.doctype.patient_appointment.patient_appointment.update_status",
-				args: {appointment_id: doc.name, status:status},
-				callback: function(data){
-					if(!data.exc){
-						frm.reload_doc();
-					}
-				}
-			});
+			
 		}
 	);
-};
-
-frappe.ui.form.on("Patient Appointment", "practitioner", function(frm) {
-	if(frm.doc.practitioner){
-		frappe.call({
-			"method": "frappe.client.get",
-			args: {
-				doctype: "Healthcare Practitioner",
-				name: frm.doc.practitioner
-			},
-			callback: function (data) {
-				frappe.model.set_value(frm.doctype,frm.docname, "department",data.message.department);
-				frappe.model.set_value(frm.doctype,frm.docname, "paid_amount",data.message.op_consulting_charge);
-			}
-		});
-	}
-});
-
-frappe.ui.form.on("Patient Appointment", "patient", function(frm) {
-	if(frm.doc.patient){
-		frappe.call({
-			"method": "frappe.client.get",
-			args: {
-				doctype: "Patient",
-				name: frm.doc.patient
-			},
-			callback: function (data) {
-				var age = null;
-				if(data.message.dob){
-					age = calculate_age(data.message.dob);
-				}
-				frappe.model.set_value(frm.doctype,frm.docname, "patient_age", age);
-			}
-		});
-	}
-});
-
-frappe.ui.form.on("Patient Appointment", "appointment_type", function(frm) {
-	if(frm.doc.appointment_type) {
-		frappe.call({
-			"method": "frappe.client.get",
-			args: {
-				doctype: "Appointment Type",
-				name: frm.doc.appointment_type
-			},
-			callback: function (data) {
-				frappe.model.set_value(frm.doctype,frm.docname, "duration",data.message.default_duration);
-			}
-		});
-	}
-});
-
-var calculate_age = function(birth) {
-	var ageMS = Date.parse(Date()) - Date.parse(birth);
-	var age = new Date();
-	age.setTime(ageMS);
-	var years =  age.getFullYear() - 1970;
-	return  years + " Year(s) " + age.getMonth() + " Month(s) " + age.getDate() + " Day(s)";
 };
