@@ -79,7 +79,7 @@ var check_and_set_availability = function(frm) {
 	function show_empty_state(practitioner, appointment_date) {
 		frappe.msgprint({
 			title: __('Not Available'),
-			message: __("Healthcare Practitioner {0} not available on {1}", [practitioner.bold(), appointment_date.bold()]),
+			message: __("Spa Therapist {0} not available on {1}", [practitioner.bold(), appointment_date.bold()]),
 			indicator: 'red'
 		});
 	}
@@ -225,7 +225,15 @@ var btn_update_status = function(frm, status){
 	var doc = frm.doc;
 	frappe.confirm(__('Are you sure you want to cancel this appointment?'),
 		function() {
-			
+			frappe.call({
+				method: 'katara_club_api.katara_club_api.doctype.spa_appointment.spa_appointment.update_status',
+				args: {appointment_id: doc.name, status:status},
+				callback: function(data) {
+					if (!data.exc) {
+						frm.reload_doc();
+					}
+				}
+			});
 		}
 	);
 };

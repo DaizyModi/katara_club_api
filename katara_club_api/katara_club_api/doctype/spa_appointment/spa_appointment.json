@@ -71,7 +71,8 @@
    "fieldname": "client_id",
    "fieldtype": "Link",
    "label": "Client ID",
-   "options": "Client"
+   "options": "Client",
+   "reqd": 1
   },
   {
    "fieldname": "column_break_7",
@@ -212,8 +213,7 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Invoice Item",
-   "options": "Item",
-   "reqd": 1
+   "options": "Item"
   },
   {
    "fieldname": "payment_entry",
@@ -222,7 +222,7 @@
   }
  ],
  "links": [],
- "modified": "2020-12-03 17:45:11.278602",
+ "modified": "2020-12-04 09:50:27.683412",
  "modified_by": "Administrator",
  "module": "Katara Club Api",
  "name": "Spa Appointment",

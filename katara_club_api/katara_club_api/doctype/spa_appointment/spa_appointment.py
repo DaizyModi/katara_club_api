@@ -15,19 +15,20 @@ from erpnext.accounts.doctype.payment_entry.payment_entry import get_payment_ent
 
 class SpaAppointment(Document):
 	def validate(self):
+		self.set_status()
 		self.set_appointment_datetime()
 		end_time = datetime.datetime.combine(getdate(self.appointment_date), get_time(self.appointment_time)) + datetime.timedelta(minutes=float(self.duration))
 		overlaps = frappe.db.sql("""
-		select
-			name, spa_therapist, client_id, appointment_time, duration
-		from
-			`tabSpa Appointment`
-		where
-			appointment_date=%s and name!=%s and status NOT IN ("Closed", "Cancelled")
-			and (spa_therapist=%s or client_id=%s) and
-			((appointment_time<%s and appointment_time + INTERVAL duration MINUTE>%s) or
-			(appointment_time>%s and appointment_time<%s) or
-			(appointment_time=%s))
+			select
+				name, spa_therapist, client_id, appointment_time, duration
+			from
+				`tabSpa Appointment`
+			where
+				appointment_date=%s and name!=%s and status NOT IN ("Closed", "Cancelled")
+				and (spa_therapist=%s or client_id=%s) and
+				((appointment_time<%s and appointment_time + INTERVAL duration MINUTE>%s) or
+				(appointment_time>%s and appointment_time<%s) or
+				(appointment_time=%s))
 		""", (self.appointment_date, self.name, self.spa_therapist, self.client_id,
 		self.appointment_time, end_time.time(), self.appointment_time, end_time.time(), self.appointment_time))
 
@@ -36,7 +37,15 @@ class SpaAppointment(Document):
 			with {2} at {3} having {4} minute(s) duration.""").format(overlaps[0][0], overlaps[0][1], overlaps[0][2], overlaps[0][3], overlaps[0][4]))
 		
 		self.invoicing()
+	def set_status(self):
+		today = getdate()
+		appointment_date = getdate(self.appointment_date)
 
+		# If appointment is created for today set status as Open else Scheduled
+		if appointment_date == today:
+			self.status = 'Open'
+		elif appointment_date > today:
+			self.status = 'Scheduled'
 	def set_appointment_datetime(self):
 		self.appointment_datetime = "%s %s" % (self.appointment_date, self.appointment_time or "00:00:00")
 
@@ -44,7 +53,7 @@ class SpaAppointment(Document):
 		send_confirmation_msg(self)
 	
 	def invoicing(self):
-		if self.status == "Paid" and not self.sales_invoice:
+		if self.status == "Paid" and not self.sales_invoice and self.invoice_item:
 			"""
 				create sales_invoice
 			"""
@@ -104,9 +113,6 @@ def get_item_price(item):
         }, 
         "price_list_rate")
     return item_price
-
-def appointment_cancel(appointment_id):
-	pass
 
 @frappe.whitelist()
 def get_availability_data(date, spa_therapist):
@@ -226,3 +232,30 @@ def send_message(doc, message):
 		message = frappe.render_template(message, context)
 		number = [patient_mobile]
 		send_sms(number, message)
+
+@frappe.whitelist()
+def update_status(appointment_id, status):
+	frappe.db.set_value('Spa Appointment', appointment_id, 'status', status)
+	if status == 'Cancelled':
+		cancel_appointment(appointment_id)
+
+def cancel_appointment(appointment_id):
+	appointment = frappe.get_doc('Spa Appointment', appointment_id)
+	if appointment.sales_invoice:
+		sales_invoice = check_sales_invoice_exists(appointment)
+		if sales_invoice and cancel_sales_invoice(sales_invoice):
+			msg = _('Appointment {0} and Sales Invoice {1} cancelled').format(appointment.name, sales_invoice.name)
+		else:
+			msg = _('Appointment Cancelled. Please review and cancel the invoice {0}').format(sales_invoice.name)
+	else:
+		msg = _('Appointment Cancelled.')
+	frappe.msgprint(msg)
+
+
+def check_sales_invoice_exists(appointment):
+	sales_invoice = frappe.get_doc('Sales Invoice', appointment.sales_invoice)
+	return sales_invoice
+
+def cancel_sales_invoice(sales_invoice):
+	sales_invoice.cancel()
+	return True
