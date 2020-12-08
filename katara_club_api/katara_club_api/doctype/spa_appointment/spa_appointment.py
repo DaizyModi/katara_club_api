@@ -219,7 +219,7 @@ def send_confirmation_msg(doc):
 		send_message(doc, message)
 	except Exception:
 		frappe.log_error(frappe.get_traceback(), _("Appointment Confirmation Message Not Sent"))
-		frappe.msgprint(_("Appointment Confirmation Message Not Sent"), indicator="orange")
+		# frappe.msgprint(_("Appointment Confirmation Message Not Sent"), indicator="orange")
 
 def send_message(doc, message):
 	patient_mobile = frappe.db.get_value("Patient", doc.patient, "mobile")

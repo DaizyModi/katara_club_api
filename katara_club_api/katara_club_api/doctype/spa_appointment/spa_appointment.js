@@ -6,10 +6,10 @@ frappe.ui.form.on('Spa Appointment', {
 
 		if (frm.is_new()) {
 			frm.page.set_primary_action(__('Check Availability'), function() {
-				if (!frm.doc.client_id) {
+				if (!frm.doc.client_id  || !frm.doc.spa_item) {
 					frappe.msgprint({
 						title: __('Not Allowed'),
-						message: __('Please select Client first'),
+						message: __('Please select Client and Spa Item first'),
 						indicator: 'red'
 					});
 				} else {

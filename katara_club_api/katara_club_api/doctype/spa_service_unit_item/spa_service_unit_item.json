@@ -1,4 +1,5 @@
 {
+ "actions": [],
  "creation": "2020-11-29 11:58:47.841311",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -14,25 +15,14 @@
    "options": "Spa Service Unit"
   }
  ],
- "modified": "2020-11-29 11:58:47.841311",
+ "istable": 1,
+ "links": [],
+ "modified": "2020-12-05 17:40:19.297945",
  "modified_by": "Administrator",
  "module": "Katara Club Api",
  "name": "Spa Service Unit Item",
  "owner": "Administrator",
- "permissions": [
-  {
-   "create": 1,
-   "delete": 1,
-   "email": 1,
-   "export": 1,
-   "print": 1,
-   "read": 1,
-   "report": 1,
-   "role": "System Manager",
-   "share": 1,
-   "write": 1
-  }
- ],
+ "permissions": [],
  "quick_entry": 1,
  "sort_field": "modified",
  "sort_order": "DESC",

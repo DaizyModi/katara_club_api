@@ -1,16 +1,20 @@
 {
- "autoname": "field:title",
+ "actions": [],
+ "autoname": "naming_series:",
  "creation": "2020-11-24 12:28:31.206344",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "title",
+  "naming_series",
   "client_id",
   "name1",
   "column_break_4",
-  "membership_id",
   "membership_type",
+  "member_details_section",
+  "second_member",
+  "third_member",
+  "fouth_member",
   "plan_details_section",
   "membership_plan",
   "membership_typess",
@@ -30,12 +34,6 @@
  ],
  "fields": [
   {
-   "fieldname": "title",
-   "fieldtype": "Data",
-   "label": "Series",
-   "unique": 1
-  },
-  {
    "fieldname": "client_id",
    "fieldtype": "Link",
    "label": "Client ID",
@@ -45,18 +43,13 @@
    "fieldname": "name1",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Full Name",
+   "label": "Primary Member",
    "read_only": 1,
    "reqd": 1
   },
   {
    "fieldname": "column_break_4",
    "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "membership_id",
-   "fieldtype": "Data",
-   "label": "Membership ID"
   },
   {
    "fetch_from": "client_id.membership_status",
@@ -80,7 +73,7 @@
   },
   {
    "fieldname": "membership_typess",
-   "fieldtype": "Data",
+   "fieldtype": "Link",
    "label": "Membership Type",
    "options": "Memberships Type",
    "read_only": 1
@@ -163,12 +156,39 @@
    "fieldtype": "Int",
    "label": "Spa Treatments",
    "read_only": 1
+  },
+  {
+   "fieldname": "member_details_section",
+   "fieldtype": "Section Break",
+   "label": "Member Details"
+  },
+  {
+   "fieldname": "second_member",
+   "fieldtype": "Data",
+   "label": "Second Member"
+  },
+  {
+   "fieldname": "third_member",
+   "fieldtype": "Data",
+   "label": "Third Member"
+  },
+  {
+   "fieldname": "fouth_member",
+   "fieldtype": "Data",
+   "label": "Fouth Member"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "KATARA-.####"
   }
  ],
- "modified": "2020-11-24 12:41:32.760625",
+ "links": [],
+ "modified": "2020-12-08 05:17:40.700339",
  "modified_by": "Administrator",
  "module": "Katara Club Api",
- "name": "Memberships",
+ "name": "Members",
  "owner": "Administrator",
  "permissions": [
   {

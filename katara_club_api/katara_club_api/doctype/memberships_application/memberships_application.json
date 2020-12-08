@@ -1,4 +1,5 @@
 {
+ "actions": [],
  "autoname": "naming_series:",
  "creation": "2020-11-24 11:24:42.147380",
  "doctype": "DocType",
@@ -9,6 +10,8 @@
   "gm_date",
   "membership_id",
   "client",
+  "create_membership",
+  "member",
   "client_name",
   "column_break_6",
   "company",
@@ -43,6 +46,9 @@
   "emergency_contact_name",
   "details_of_second_member_section",
   "second_member_full_name",
+  "secound_user",
+  "secound_client",
+  "customer_secound",
   "second_member_date_of_birth",
   "second_member_nationality",
   "second_member_qid_number",
@@ -54,19 +60,25 @@
   "second_member_mobile_number",
   "second_member_email_address",
   "client_second",
+  "third_member_section",
+  "name1",
+  "is_above_16",
+  "third_user",
+  "email",
+  "phone",
+  "fourth_member_section",
+  "fourth_member_name",
+  "fourth_user",
+  "is_above",
+  "email_4",
+  "phone_4",
   "section_break_50",
-  "family_members",
-  "client_flamiy",
-  "section_break_53",
   "how_did_you_hear_about_katara_club_section",
   "other",
-  "column_break_56",
-  "amended_from",
   "section_break_58",
-  "membershi_couple_item",
-  "membership_item",
   "sales_invoice",
-  "payment_entry"
+  "payment_entry",
+  "amended_from"
  ],
  "fields": [
   {
@@ -214,8 +226,7 @@
    "fieldname": "full_name",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Full Name",
-   "reqd": 1
+   "label": "Full Name"
   },
   {
    "fieldname": "date_of_birth",
@@ -357,22 +368,6 @@
    "fieldtype": "Section Break"
   },
   {
-   "fieldname": "family_members",
-   "fieldtype": "Data",
-   "label": "Children Details "
-  },
-  {
-   "fieldname": "client_flamiy",
-   "fieldtype": "Data",
-   "label": "Client Flamiy",
-   "options": "Client",
-   "read_only": 1
-  },
-  {
-   "fieldname": "section_break_53",
-   "fieldtype": "Section Break"
-  },
-  {
    "fieldname": "how_did_you_hear_about_katara_club_section",
    "fieldtype": "Section Break",
    "label": "How did you hear about Katara Club"
@@ -380,10 +375,6 @@
   {
    "fieldname": "other",
    "fieldtype": "Data"
-  },
-  {
-   "fieldname": "column_break_56",
-   "fieldtype": "Column Break"
   },
   {
    "fieldname": "amended_from",
@@ -394,18 +385,6 @@
   {
    "fieldname": "section_break_58",
    "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "membershi_couple_item",
-   "fieldtype": "Table",
-   "label": "Membershi Couple Item",
-   "options": "Membershi Couple Item"
-  },
-  {
-   "fieldname": "membership_item",
-   "fieldtype": "Table",
-   "label": "Membership Item",
-   "options": "Membership Item"
   },
   {
    "fieldname": "amended_from",
@@ -422,10 +401,105 @@
    "fieldname": "payment_entry",
    "fieldtype": "Data",
    "label": "Payment Entry"
+  },
+  {
+   "default": "0",
+   "fieldname": "create_membership",
+   "fieldtype": "Check",
+   "label": "Create Membership"
+  },
+  {
+   "fieldname": "member",
+   "fieldtype": "Link",
+   "label": "Member",
+   "options": "Members"
+  },
+  {
+   "fieldname": "third_member_section",
+   "fieldtype": "Section Break",
+   "label": "Third Member"
+  },
+  {
+   "fieldname": "name1",
+   "fieldtype": "Data",
+   "label": "Name"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_above_16",
+   "fieldtype": "Check",
+   "label": "Is Above 16"
+  },
+  {
+   "fieldname": "email",
+   "fieldtype": "Data",
+   "label": "Email"
+  },
+  {
+   "fieldname": "phone",
+   "fieldtype": "Data",
+   "label": "Phone"
+  },
+  {
+   "fieldname": "fourth_member_section",
+   "fieldtype": "Section Break",
+   "label": "Fourth Member"
+  },
+  {
+   "fieldname": "fourth_member_name",
+   "fieldtype": "Data",
+   "label": "Fourth Member Name"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_above",
+   "fieldtype": "Check",
+   "label": "Is Above 16"
+  },
+  {
+   "fieldname": "email_4",
+   "fieldtype": "Data",
+   "label": "Email 4"
+  },
+  {
+   "fieldname": "phone_4",
+   "fieldtype": "Data",
+   "label": "Phone 4"
+  },
+  {
+   "fieldname": "secound_user",
+   "fieldtype": "Link",
+   "label": "Secound User",
+   "options": "User"
+  },
+  {
+   "fieldname": "third_user",
+   "fieldtype": "Link",
+   "label": "Third User",
+   "options": "User"
+  },
+  {
+   "fieldname": "fourth_user",
+   "fieldtype": "Link",
+   "label": "Fourth User",
+   "options": "User"
+  },
+  {
+   "fieldname": "secound_client",
+   "fieldtype": "Link",
+   "label": "Secound Client",
+   "options": "Client"
+  },
+  {
+   "fieldname": "customer_secound",
+   "fieldtype": "Link",
+   "label": "Customer Secound",
+   "options": "Customer"
   }
  ],
  "is_submittable": 1,
- "modified": "2020-11-25 14:48:38.505196",
+ "links": [],
+ "modified": "2020-12-08 05:39:50.474980",
  "modified_by": "Administrator",
  "module": "Katara Club Api",
  "name": "Memberships Application",

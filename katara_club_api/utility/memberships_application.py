@@ -3,6 +3,7 @@ from frappe.utils import today
 from erpnext.accounts.doctype.payment_entry.payment_entry import get_payment_entry
 
 def memberships_application_validate(memberships_application, method):
+	create_membership(memberships_application)
 	if memberships_application.payment_status == "Paid" and not memberships_application.sales_invoice:
 		"""
 			create sales_invoice
@@ -65,3 +66,50 @@ def get_item_price(item):
         }, 
         "price_list_rate")
     return item_price
+
+def create_membership(memberships_application):
+	if memberships_application.create_membership and not memberships_application.member:
+		member = frappe.get_doc({
+			'doctype': 'Members',
+			'name1': memberships_application.full_name
+		})
+		member.insert()
+		memberships_application.member = member.name
+	if memberships_application.create_membership:
+		member = frappe.get_doc("Members",memberships_application.member)
+		member.client_id = memberships_application.client
+		member.second_member = memberships_application.second_member_full_name
+		member.third_member = memberships_application.name1
+		member.fouth_member = memberships_application.fourth_member_name
+		member.save()
+
+	if memberships_application.application_type == "Couple Membership" and memberships_application.payment_status == "Paid" and not memberships_application.secound_user:
+		user,client,customer = create_user_client_customer(memberships_application.second_member_full_name,memberships_application.second_member_email_address,memberships_application.second_member_gender,memberships_application.second_member_mobile_number)
+		memberships_application.secound_user = user
+		memberships_application.secound_client = client
+		memberships_application.customer_secound = customer
+
+def create_user_client_customer(name, mail, gender,mobile):
+	user = frappe.get_doc({
+		'doctype': 'User',
+		'email': mail,
+		'first_name': name,
+		'new_password': "123"
+	})
+	user.insert()
+	client = frappe.get_doc({
+		'doctype': 'Client',
+		'gender': gender,
+		'user' : user.name,
+		'mobile_no': mobile
+	})
+	client.insert()
+	customer = frappe.get_doc({
+		'doctype': 'Customer',
+		'customer_name': name,
+		'customer_type': 'Individual',
+		'customer_group' : 'All Customer Groups',
+		'territory': "All Territories"
+	})
+	customer.insert()
+	return user.name,client.name,customer.name

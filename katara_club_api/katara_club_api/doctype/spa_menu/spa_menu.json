@@ -1,4 +1,5 @@
 {
+ "actions": [],
  "creation": "2020-11-29 11:45:56.995536",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -16,7 +17,12 @@
   "description",
   "other_details_section",
   "duration",
-  "turn_around_time"
+  "turn_around_time",
+  "column_break_14",
+  "spa_rooms",
+  "rate",
+  "capacity",
+  "spa_machine"
  ],
  "fields": [
   {
@@ -84,9 +90,36 @@
    "fieldname": "turn_around_time",
    "fieldtype": "Data",
    "label": "Turn Around Time "
+  },
+  {
+   "fieldname": "column_break_14",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "spa_rooms",
+   "fieldtype": "Table MultiSelect",
+   "label": "Spa Rooms",
+   "options": "Spa Service Unit Item"
+  },
+  {
+   "fieldname": "rate",
+   "fieldtype": "Currency",
+   "label": "Rate"
+  },
+  {
+   "fieldname": "capacity",
+   "fieldtype": "Int",
+   "label": "Capacity"
+  },
+  {
+   "fieldname": "spa_machine",
+   "fieldtype": "Link",
+   "label": "Spa Machine",
+   "options": "Spa Machine"
   }
  ],
- "modified": "2020-11-29 11:45:56.995536",
+ "links": [],
+ "modified": "2020-12-05 17:40:33.523761",
  "modified_by": "Administrator",
  "module": "Katara Club Api",
  "name": "Spa Menu",
