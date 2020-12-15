@@ -68,21 +68,6 @@ def get_item_price(item):
     return item_price
 
 def create_membership(memberships_application):
-	if memberships_application.create_membership and not memberships_application.member:
-		member = frappe.get_doc({
-			'doctype': 'Members',
-			'name1': memberships_application.full_name
-		})
-		member.insert()
-		memberships_application.member = member.name
-	if memberships_application.create_membership:
-		member = frappe.get_doc("Members",memberships_application.member)
-		member.client_id = memberships_application.client
-		member.second_member = memberships_application.second_member_full_name
-		member.third_member = memberships_application.name1
-		member.fouth_member = memberships_application.fourth_member_name
-		member.save()
-
 	if memberships_application.application_type == "Couple Membership" and memberships_application.payment_status == "Paid" and not memberships_application.secound_user:
 		user,client,customer = create_user_client_customer(memberships_application.second_member_full_name,memberships_application.second_member_email_address,memberships_application.second_member_gender,memberships_application.second_member_mobile_number)
 		memberships_application.secound_user = user
@@ -100,13 +85,42 @@ def create_membership(memberships_application):
 			if int(child.age) >= 18 and not child.client_id:
 				_client = create_user_client(memberships_application, child)
 				child.client_id = _client
+	
+	if memberships_application.create_membership and not memberships_application.member:
+		member = frappe.get_doc({
+			'doctype': 'Members',
+			'client_name': memberships_application.full_name
+		})
+		member.insert()
+		memberships_application.member = member.name
+	if memberships_application.create_membership:
+		member = frappe.get_doc("Members",memberships_application.member)
+		member.client_id = memberships_application.client
+		member.second_member = memberships_application.second_member_full_name
+		member.date = memberships_application.gm_date
+		member.membership_application = memberships_application.name
+		member.membership_typess = memberships_application.application_type
+		member.membership_plan = memberships_application.membership_plan
+		member.type = memberships_application.type
+		
+		member.client = memberships_application.full_name
+		member.client_name_2 = memberships_application.second_member_full_name
+		
+		member.additional_members_item = []
+		for child in memberships_application.children_details:
+			member.append("additional_members_item",{
+				"client_id": child.client_id,
+				"client_name": child.first_name
+			})
+		member.save()
 
 def create_user_client(memberships_application, child):
 	user = frappe.get_doc({
 		'doctype': 'User',
 		'email': child.email_address,
 		'first_name': child.first_name,
-		'new_password': "123"
+		'new_password': "123",
+		'send_welcome_email': False
 	})
 	user.insert()
 	client = frappe.get_doc({
@@ -116,13 +130,15 @@ def create_user_client(memberships_application, child):
 		'mobile_no': child.mobile_number
 	})
 	client.insert()
+	frappe.db.submit()
 	return client.name
 def create_user_client_customer(name, mail, gender,mobile):
 	user = frappe.get_doc({
 		'doctype': 'User',
 		'email': mail,
 		'first_name': name,
-		'new_password': "123"
+		'new_password': "123",
+		'send_welcome_email': False
 	})
 	user.insert()
 	client = frappe.get_doc({
@@ -140,4 +156,5 @@ def create_user_client_customer(name, mail, gender,mobile):
 		'territory': "All Territories"
 	})
 	customer.insert()
+	frappe.db.submit()
 	return user.name,client.name,customer.name

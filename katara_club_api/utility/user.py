@@ -24,10 +24,10 @@ def create_client(user,customer):
 		'middle_name': user.middle_name,
 		'last_name': user.last_name,
 		'client_name': user.full_name,
-		'gender': user.gender,
+		'gender': user.gender if user.gender else "Male",
 		'birth_date': user.birth_date,
 		'qatar_id': user.qatar_id,
-		'mobile_no': user.mobile_no,
+		'mobile_no': user.mobile_no if user.mobile_no else 10,
 		'customer':customer
 	})
 	doc.insert(ignore_permissions=True)
