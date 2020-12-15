@@ -6,47 +6,39 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "membership_details_section",
   "naming_series",
-  "client_id",
-  "name1",
-  "column_break_4",
-  "membership_type",
-  "member_details_section",
-  "second_member",
-  "third_member",
-  "fouth_member",
-  "plan_details_section",
-  "membership_plan",
+  "date",
+  "membership_application",
   "membership_typess",
-  "duration",
-  "column_break_11",
+  "membership_plan",
+  "type",
+  "client_name",
+  "column_break_4",
+  "member_id",
+  "primary_client_id",
+  "membership_type",
   "start_date",
   "end_date",
-  "benefit_details_section",
-  "benefits_paln",
-  "benefits_item",
-  "discounts_section",
-  "boho_social",
-  "barberbeauty_salon",
-  "column_break_20",
-  "retail",
-  "spa_treatments"
+  "duration",
+  "primary_member_section",
+  "client_id",
+  "client",
+  "data_19",
+  "member_no",
+  "card_no",
+  "member_benefits",
+  "second_member_section",
+  "client_id_2",
+  "client_name_2",
+  "column_break_26",
+  "member_no_2",
+  "card_no_2",
+  "member_benefits_2",
+  "additonal_member_details_section",
+  "additional_members_item"
  ],
  "fields": [
-  {
-   "fieldname": "client_id",
-   "fieldtype": "Link",
-   "label": "Client ID",
-   "options": "Client"
-  },
-  {
-   "fieldname": "name1",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "Primary Member",
-   "read_only": 1,
-   "reqd": 1
-  },
   {
    "fieldname": "column_break_4",
    "fieldtype": "Column Break"
@@ -60,34 +52,16 @@
    "read_only": 1
   },
   {
-   "fieldname": "plan_details_section",
-   "fieldtype": "Section Break",
-   "label": "Plan Details"
-  },
-  {
    "fieldname": "membership_plan",
    "fieldtype": "Link",
    "label": "Membership Plan",
-   "options": "Memberships Plan",
-   "read_only": 1
+   "options": "Memberships Plan"
   },
   {
    "fieldname": "membership_typess",
    "fieldtype": "Link",
    "label": "Membership Type",
-   "options": "Memberships Type",
-   "read_only": 1
-  },
-  {
-   "fetch_from": "membership_plan.duration",
-   "fieldname": "duration",
-   "fieldtype": "Data",
-   "label": "Duration",
-   "read_only": 1
-  },
-  {
-   "fieldname": "column_break_11",
-   "fieldtype": "Column Break"
+   "options": "Memberships Type"
   },
   {
    "default": "Today",
@@ -102,90 +76,142 @@
    "read_only": 1
   },
   {
-   "fieldname": "benefit_details_section",
-   "fieldtype": "Section Break",
-   "label": "Benefit Details"
-  },
-  {
-   "fieldname": "benefits_paln",
-   "fieldtype": "Link",
-   "label": "Benefits Paln",
-   "options": "Benefits Plan",
-   "read_only": 1
-  },
-  {
-   "fieldname": "benefits_item",
-   "fieldtype": "Table",
-   "label": "Benefits Item",
-   "options": "Benefits Item",
-   "read_only": 1
-  },
-  {
-   "fieldname": "discounts_section",
-   "fieldtype": "Section Break",
-   "label": "Discount Percentage"
-  },
-  {
-   "fetch_from": "benefits_paln.boho_social",
-   "fieldname": "boho_social",
-   "fieldtype": "Int",
-   "label": "BOHO Social",
-   "read_only": 1
-  },
-  {
-   "fetch_from": "benefits_paln.barberbeauty_salon",
-   "fieldname": "barberbeauty_salon",
-   "fieldtype": "Int",
-   "label": "BarberBeauty Salon",
-   "read_only": 1
-  },
-  {
-   "fieldname": "column_break_20",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fetch_from": "benefits_paln.retail",
-   "fieldname": "retail",
-   "fieldtype": "Int",
-   "label": "Retail",
-   "read_only": 1
-  },
-  {
-   "fetch_from": "benefits_paln.spa_treatments",
-   "fieldname": "spa_treatments",
-   "fieldtype": "Int",
-   "label": "Spa Treatments",
-   "read_only": 1
-  },
-  {
-   "fieldname": "member_details_section",
-   "fieldtype": "Section Break",
-   "label": "Member Details"
-  },
-  {
-   "fieldname": "second_member",
-   "fieldtype": "Data",
-   "label": "Second Member"
-  },
-  {
-   "fieldname": "third_member",
-   "fieldtype": "Data",
-   "label": "Third Member"
-  },
-  {
-   "fieldname": "fouth_member",
-   "fieldtype": "Data",
-   "label": "Fouth Member"
-  },
-  {
    "fieldname": "naming_series",
    "fieldtype": "Select",
    "label": "Naming Series",
-   "options": "KATARA-.####"
+   "options": "MEM-.YYYY.-"
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "membership_application",
+   "fieldtype": "Link",
+   "label": "Membership Application",
+   "options": "Memberships Application"
+  },
+  {
+   "fieldname": "type",
+   "fieldtype": "Select",
+   "label": "Type",
+   "options": "Individual\nCorporate"
+  },
+  {
+   "fieldname": "client_name",
+   "fieldtype": "Data",
+   "label": "Client Name"
+  },
+  {
+   "fieldname": "member_id",
+   "fieldtype": "Data",
+   "label": "Member ID"
+  },
+  {
+   "fieldname": "primary_client_id",
+   "fieldtype": "Link",
+   "label": "Primary Client ID",
+   "options": "Client"
+  },
+  {
+   "fieldname": "membership_details_section",
+   "fieldtype": "Section Break",
+   "label": "Membership Details"
+  },
+  {
+   "fieldname": "duration",
+   "fieldtype": "Data",
+   "label": "Duration"
+  },
+  {
+   "fieldname": "primary_member_section",
+   "fieldtype": "Section Break",
+   "label": "Primary Member"
+  },
+  {
+   "fieldname": "client_id",
+   "fieldtype": "Link",
+   "label": "Client ID",
+   "options": "Client"
+  },
+  {
+   "fieldname": "client",
+   "fieldtype": "Data",
+   "label": "Client Name"
+  },
+  {
+   "fieldname": "data_19",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "member_no",
+   "fieldtype": "Data",
+   "label": "Member No"
+  },
+  {
+   "fieldname": "card_no",
+   "fieldtype": "Data",
+   "label": "Card No"
+  },
+  {
+   "fieldname": "member_benefits",
+   "fieldtype": "Link",
+   "label": "Member Benefits",
+   "options": "Member Benefits"
+  },
+  {
+   "depends_on": "eval:doc.membership_typess != \"Single Membership\"",
+   "fieldname": "second_member_section",
+   "fieldtype": "Section Break",
+   "label": "Second Member"
+  },
+  {
+   "fieldname": "client_id_2",
+   "fieldtype": "Link",
+   "label": "Client ID",
+   "options": "Client"
+  },
+  {
+   "fieldname": "client_name_2",
+   "fieldtype": "Data",
+   "label": "Client Name"
+  },
+  {
+   "fieldname": "column_break_26",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "member_no_2",
+   "fieldtype": "Data",
+   "label": "Member No"
+  },
+  {
+   "fieldname": "card_no_2",
+   "fieldtype": "Data",
+   "label": "Card No"
+  },
+  {
+   "fieldname": "member_benefits_2",
+   "fieldtype": "Link",
+   "label": "Member Benefits",
+   "options": "Member Benefits"
+  },
+  {
+   "depends_on": "eval:doc.membership_typess != \"Single Membership\"",
+   "fieldname": "additonal_member_details_section",
+   "fieldtype": "Section Break",
+   "label": "Additonal Member Details"
+  },
+  {
+   "fieldname": "additional_members_item",
+   "fieldtype": "Table",
+   "label": "Additional Members Item",
+   "options": "Additional Members Item"
   }
  ],
  "links": [],
- "modified": "2020-12-08 05:17:40.700339",
+ "modified": "2020-12-15 02:04:33.803207",
  "modified_by": "Administrator",
  "module": "Katara Club Api",
  "name": "Members",

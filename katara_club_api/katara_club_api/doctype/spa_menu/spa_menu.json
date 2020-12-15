@@ -18,6 +18,7 @@
   "other_details_section",
   "duration",
   "turn_around_time",
+  "total_time",
   "column_break_14",
   "spa_rooms",
   "rate",
@@ -116,10 +117,15 @@
    "fieldtype": "Link",
    "label": "Spa Machine",
    "options": "Spa Machine"
+  },
+  {
+   "fieldname": "total_time",
+   "fieldtype": "Data",
+   "label": "Total Time"
   }
  ],
  "links": [],
- "modified": "2020-12-05 17:40:33.523761",
+ "modified": "2020-12-15 01:13:44.160560",
  "modified_by": "Administrator",
  "module": "Katara Club Api",
  "name": "Spa Menu",

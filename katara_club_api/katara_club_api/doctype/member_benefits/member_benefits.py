@@ -6,6 +6,5 @@ from __future__ import unicode_literals
 # import frappe
 from frappe.model.document import Document
 
-class SpaMenu(Document):
-	def validate(self):
-		self.total_time = float(self.duration) + float(self.turn_around_time)
+class MemberBenefits(Document):
+	pass

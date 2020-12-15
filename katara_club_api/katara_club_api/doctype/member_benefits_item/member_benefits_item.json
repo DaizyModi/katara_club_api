@@ -1,0 +1,68 @@
+{
+ "actions": [],
+ "creation": "2020-12-15 01:37:23.377158",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "benefits_name",
+  "count",
+  "quantity",
+  "used",
+  "balance",
+  "duration"
+ ],
+ "fields": [
+  {
+   "fieldname": "benefits_name",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Benefits Name",
+   "options": "Benefits"
+  },
+  {
+   "fieldname": "count",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Count",
+   "options": "Limited\nUnlimited"
+  },
+  {
+   "fieldname": "quantity",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Quantity"
+  },
+  {
+   "fieldname": "used",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Used"
+  },
+  {
+   "fieldname": "balance",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Balance"
+  },
+  {
+   "fieldname": "duration",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Duration"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2020-12-15 02:07:06.836859",
+ "modified_by": "Administrator",
+ "module": "Katara Club Api",
+ "name": "Member Benefits Item",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

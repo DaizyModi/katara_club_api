@@ -1,0 +1,159 @@
+{
+ "actions": [],
+ "autoname": "naming_series:",
+ "creation": "2020-12-15 01:36:17.168486",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "client_id",
+  "client_name",
+  "column_break_4",
+  "status",
+  "member_id",
+  "membership_id",
+  "start_date",
+  "expiry_date",
+  "benefits_section_column",
+  "benefits",
+  "discounts",
+  "spa_treatments",
+  "retail",
+  "grams",
+  "column_break_16",
+  "boho_social",
+  "salon",
+  "notes_section",
+  "staff_notes"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "BEN-.YYYY.-"
+  },
+  {
+   "fieldname": "client_id",
+   "fieldtype": "Link",
+   "label": "Client ID",
+   "options": "Client"
+  },
+  {
+   "fieldname": "client_name",
+   "fieldtype": "Data",
+   "label": "Client Name"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Active\nExpired"
+  },
+  {
+   "fieldname": "member_id",
+   "fieldtype": "Data",
+   "label": "Member ID"
+  },
+  {
+   "fieldname": "membership_id",
+   "fieldtype": "Data",
+   "label": "Membership ID"
+  },
+  {
+   "fieldname": "start_date",
+   "fieldtype": "Date",
+   "label": "Start Date"
+  },
+  {
+   "fieldname": "expiry_date",
+   "fieldtype": "Date",
+   "label": "Expiry Date"
+  },
+  {
+   "fieldname": "benefits_section_column",
+   "fieldtype": "Section Break",
+   "label": "Benefits Section"
+  },
+  {
+   "fieldname": "benefits",
+   "fieldtype": "Table",
+   "label": "Benefits",
+   "options": "Member Benefits Item"
+  },
+  {
+   "fieldname": "discounts",
+   "fieldtype": "Section Break",
+   "label": "Discounts"
+  },
+  {
+   "fieldname": "spa_treatments",
+   "fieldtype": "Data",
+   "label": "Spa Treatments"
+  },
+  {
+   "fieldname": "retail",
+   "fieldtype": "Data",
+   "label": "Retail"
+  },
+  {
+   "fieldname": "grams",
+   "fieldtype": "Data",
+   "label": "Grams"
+  },
+  {
+   "fieldname": "column_break_16",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "boho_social",
+   "fieldtype": "Data",
+   "label": "BOHO Social"
+  },
+  {
+   "fieldname": "salon",
+   "fieldtype": "Data",
+   "label": "Salon"
+  },
+  {
+   "fieldname": "notes_section",
+   "fieldtype": "Section Break",
+   "label": "Notes"
+  },
+  {
+   "fieldname": "staff_notes",
+   "fieldtype": "Data",
+   "label": "Staff Notes"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2020-12-15 02:06:14.344938",
+ "modified_by": "Administrator",
+ "module": "Katara Club Api",
+ "name": "Member Benefits",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

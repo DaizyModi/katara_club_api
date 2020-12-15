@@ -1,0 +1,66 @@
+{
+ "actions": [],
+ "creation": "2020-12-15 01:30:27.418695",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "client_id",
+  "client_name",
+  "column_break_3",
+  "member_id",
+  "card_number",
+  "member_benefits"
+ ],
+ "fields": [
+  {
+   "fieldname": "client_id",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Client ID",
+   "options": "Client"
+  },
+  {
+   "fieldname": "client_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Client Name"
+  },
+  {
+   "fieldname": "member_id",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Member ID"
+  },
+  {
+   "fieldname": "card_number",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Card Number"
+  },
+  {
+   "fieldname": "member_benefits",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Member Benefits",
+   "options": "Member Benefits"
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2020-12-15 03:10:47.838506",
+ "modified_by": "Administrator",
+ "module": "Katara Club Api",
+ "name": "Additional Members Item",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

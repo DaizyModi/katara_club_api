@@ -88,6 +88,12 @@ def create_membership(memberships_application):
 		memberships_application.secound_user = user
 		memberships_application.secound_client = client
 		memberships_application.customer_secound = customer
+	
+	if memberships_application.application_type == "Family Membership" and memberships_application.payment_status == "Paid" and not memberships_application.secound_user:
+		user,client,customer = create_user_client_customer(memberships_application.second_member_full_name,memberships_application.second_member_email_address,memberships_application.second_member_gender,memberships_application.second_member_mobile_number)
+		memberships_application.secound_user = user
+		memberships_application.secound_client = client
+		memberships_application.customer_secound = customer
 
 def create_user_client_customer(name, mail, gender,mobile):
 	user = frappe.get_doc({

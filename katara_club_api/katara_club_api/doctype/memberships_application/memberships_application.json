@@ -10,31 +10,29 @@
   "gm_date",
   "membership_id",
   "client",
+  "client_name",
   "create_membership",
   "member",
-  "client_name",
   "column_break_6",
-  "company",
   "application_status",
   "payment_status",
   "type",
   "disabled",
   "memberships_details_section",
+  "number_of_adults",
   "application_type",
   "membership_plan",
   "benefits_plan",
-  "discount_amount",
-  "payment_details_column",
+  "column_break_18",
+  "number_of_kids",
   "membership_fee",
   "joining_fee",
-  "total",
   "grand_total",
   "details_of_primary_member_section",
   "full_name",
   "date_of_birth",
   "nationality",
   "qid_number",
-  "occupation",
   "attach_qid",
   "attach_qid_back",
   "column_break_30",
@@ -52,7 +50,6 @@
   "second_member_date_of_birth",
   "second_member_nationality",
   "second_member_qid_number",
-  "second_member_occupation",
   "attach_qid_2",
   "attach_back",
   "column_break_45",
@@ -60,18 +57,8 @@
   "second_member_mobile_number",
   "second_member_email_address",
   "client_second",
-  "third_member_section",
-  "name1",
-  "is_above_16",
-  "third_user",
-  "email",
-  "phone",
-  "fourth_member_section",
-  "fourth_member_name",
-  "fourth_user",
-  "is_above",
-  "email_4",
-  "phone_4",
+  "additional_member_details_section",
+  "children_details",
   "section_break_50",
   "how_did_you_hear_about_katara_club_section",
   "other",
@@ -120,13 +107,6 @@
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "company",
-   "fieldtype": "Link",
-   "label": "Company",
-   "options": "Company",
-   "read_only": 1
-  },
-  {
    "fieldname": "application_status",
    "fieldtype": "Select",
    "label": "Application Status",
@@ -173,48 +153,27 @@
    "options": "Memberships Plan"
   },
   {
-   "fetch_from": "membership_plan.benefits_item",
    "fieldname": "benefits_plan",
    "fieldtype": "Link",
    "label": "Benefits Plan",
-   "options": "Benefits Plan",
-   "read_only": 1
-  },
-  {
-   "fieldname": "discount_amount",
-   "fieldtype": "Currency",
-   "label": "Discount Amount"
-  },
-  {
-   "fieldname": "payment_details_column",
-   "fieldtype": "Column Break",
-   "label": "Payment Details"
+   "options": "Benefits Plan"
   },
   {
    "fetch_from": "membership_plan.membership_fee",
    "fieldname": "membership_fee",
    "fieldtype": "Currency",
-   "label": "Membership Fee",
-   "read_only": 1
+   "label": "Membership Fee"
   },
   {
    "fetch_from": "membership_plan.joining_fee",
    "fieldname": "joining_fee",
    "fieldtype": "Currency",
-   "label": "Joining Fee",
-   "read_only": 1
-  },
-  {
-   "fieldname": "total",
-   "fieldtype": "Currency",
-   "label": "Net Total",
-   "read_only": 1
+   "label": "Joining Fee"
   },
   {
    "fieldname": "grand_total",
    "fieldtype": "Currency",
-   "label": "Grand Total",
-   "read_only": 1
+   "label": "Grand Total"
   },
   {
    "fieldname": "details_of_primary_member_section",
@@ -243,11 +202,6 @@
    "fieldname": "qid_number",
    "fieldtype": "Data",
    "label": "QID Number"
-  },
-  {
-   "fieldname": "occupation",
-   "fieldtype": "Data",
-   "label": "Occupation"
   },
   {
    "fieldname": "attach_qid",
@@ -296,7 +250,7 @@
    "label": "Emergency Contact Name"
   },
   {
-   "depends_on": "eval:doc.application_type == \"Couple Membership\"",
+   "depends_on": "eval:doc.application_type != \"Single Membership\"",
    "fieldname": "details_of_second_member_section",
    "fieldtype": "Section Break",
    "label": "Details of Second Member"
@@ -320,11 +274,6 @@
    "fieldname": "second_member_qid_number",
    "fieldtype": "Data",
    "label": "QID Number"
-  },
-  {
-   "fieldname": "second_member_occupation",
-   "fieldtype": "Data",
-   "label": "Occupation"
   },
   {
    "fieldname": "attach_qid_2",
@@ -415,73 +364,9 @@
    "options": "Members"
   },
   {
-   "fieldname": "third_member_section",
-   "fieldtype": "Section Break",
-   "label": "Third Member"
-  },
-  {
-   "fieldname": "name1",
-   "fieldtype": "Data",
-   "label": "Name"
-  },
-  {
-   "default": "0",
-   "fieldname": "is_above_16",
-   "fieldtype": "Check",
-   "label": "Is Above 16"
-  },
-  {
-   "fieldname": "email",
-   "fieldtype": "Data",
-   "label": "Email"
-  },
-  {
-   "fieldname": "phone",
-   "fieldtype": "Data",
-   "label": "Phone"
-  },
-  {
-   "fieldname": "fourth_member_section",
-   "fieldtype": "Section Break",
-   "label": "Fourth Member"
-  },
-  {
-   "fieldname": "fourth_member_name",
-   "fieldtype": "Data",
-   "label": "Fourth Member Name"
-  },
-  {
-   "default": "0",
-   "fieldname": "is_above",
-   "fieldtype": "Check",
-   "label": "Is Above 16"
-  },
-  {
-   "fieldname": "email_4",
-   "fieldtype": "Data",
-   "label": "Email 4"
-  },
-  {
-   "fieldname": "phone_4",
-   "fieldtype": "Data",
-   "label": "Phone 4"
-  },
-  {
    "fieldname": "secound_user",
    "fieldtype": "Link",
    "label": "Secound User",
-   "options": "User"
-  },
-  {
-   "fieldname": "third_user",
-   "fieldtype": "Link",
-   "label": "Third User",
-   "options": "User"
-  },
-  {
-   "fieldname": "fourth_user",
-   "fieldtype": "Link",
-   "label": "Fourth User",
    "options": "User"
   },
   {
@@ -495,11 +380,39 @@
    "fieldtype": "Link",
    "label": "Customer Secound",
    "options": "Customer"
+  },
+  {
+   "depends_on": "eval:(doc.application_type == \"Couple Membership\" || doc.application_type == \"Family Membership\")",
+   "fieldname": "additional_member_details_section",
+   "fieldtype": "Section Break",
+   "label": "Additional Member Details"
+  },
+  {
+   "fieldname": "children_details",
+   "fieldtype": "Table",
+   "label": "Children Details",
+   "options": "Children Details"
+  },
+  {
+   "fieldname": "number_of_adults",
+   "fieldtype": "Select",
+   "label": "Number of Adults",
+   "options": "1\n2\n3\n4"
+  },
+  {
+   "fieldname": "number_of_kids",
+   "fieldtype": "Select",
+   "label": "Number of Kids",
+   "options": "0\n1\n2"
+  },
+  {
+   "fieldname": "column_break_18",
+   "fieldtype": "Column Break"
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2020-12-08 05:39:50.474980",
+ "modified": "2020-12-15 02:23:16.905226",
  "modified_by": "Administrator",
  "module": "Katara Club Api",
  "name": "Memberships Application",
