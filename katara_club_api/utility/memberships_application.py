@@ -89,12 +89,34 @@ def create_membership(memberships_application):
 		memberships_application.secound_client = client
 		memberships_application.customer_secound = customer
 	
-	if memberships_application.application_type == "Family Membership" and memberships_application.payment_status == "Paid" and not memberships_application.secound_user:
-		user,client,customer = create_user_client_customer(memberships_application.second_member_full_name,memberships_application.second_member_email_address,memberships_application.second_member_gender,memberships_application.second_member_mobile_number)
-		memberships_application.secound_user = user
-		memberships_application.secound_client = client
-		memberships_application.customer_secound = customer
+	if memberships_application.application_type == "Family Membership" and memberships_application.payment_status == "Paid":
+		if not memberships_application.secound_user:
+			user,client,customer = create_user_client_customer(memberships_application.second_member_full_name,memberships_application.second_member_email_address,memberships_application.second_member_gender,memberships_application.second_member_mobile_number)
+			memberships_application.secound_user = user
+			memberships_application.secound_client = client
+			memberships_application.customer_secound = customer
+		
+		for child in memberships_application.children_details:
+			if int(child.age) >= 18 and not child.client_id:
+				_client = create_user_client(memberships_application, child)
+				child.client_id = _client
 
+def create_user_client(memberships_application, child):
+	user = frappe.get_doc({
+		'doctype': 'User',
+		'email': child.email_address,
+		'first_name': child.first_name,
+		'new_password': "123"
+	})
+	user.insert()
+	client = frappe.get_doc({
+		'doctype': 'Client',
+		'gender': "Male",
+		'user' : user.name,
+		'mobile_no': child.mobile_number
+	})
+	client.insert()
+	return client.name
 def create_user_client_customer(name, mail, gender,mobile):
 	user = frappe.get_doc({
 		'doctype': 'User',
