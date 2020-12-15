@@ -66,7 +66,7 @@ def get_item_price(item):
         }, 
         "price_list_rate")
     return item_price
-
+	
 def create_membership(memberships_application):
 	if memberships_application.application_type == "Couple Membership" and memberships_application.payment_status == "Paid" and not memberships_application.secound_user:
 		user,client,customer = create_user_client_customer(memberships_application.second_member_full_name,memberships_application.second_member_email_address,memberships_application.second_member_gender,memberships_application.second_member_mobile_number)
