@@ -91,7 +91,8 @@ doc_events = {
 		"on_update": "katara_club_api.utility.client.client_validate"
 	},
 	"Memberships Application": {
-		"validate": "katara_club_api.utility.memberships_application.memberships_application_validate"
+		"validate": "katara_club_api.utility.memberships_application.memberships_application_validate",
+		"on_update": "katara_club_api.utility.memberships_application.memberships_application_update"
 	}
 }
 

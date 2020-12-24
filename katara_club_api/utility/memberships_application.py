@@ -2,8 +2,9 @@ import frappe
 from frappe.utils import today
 from erpnext.accounts.doctype.payment_entry.payment_entry import get_payment_entry
 
-def memberships_application_validate(memberships_application, method):
+def memberships_application_update(memberships_application, method):
 	create_membership(memberships_application)
+def memberships_application_validate(memberships_application, method):
 	if memberships_application.payment_status == "Paid" and not memberships_application.sales_invoice:
 		"""
 			create sales_invoice
@@ -25,14 +26,15 @@ def memberships_application_validate(memberships_application, method):
 		plan = frappe.get_value("Item",memberships_application.membership_plan,"name")
 		if not plan:
 			frappe.msgprint("Item Not Found, Sales Invoice will not create")
+			return
 		si.append("items",{
 			"item_code": plan,
 			"qty": 1,
 			"rate": get_item_price(plan)
 		})
-		if memberships_application.discount_amount > 0:
-			si.apply_discount_on = "Grand Total"
-			si.discount_amount = memberships_application.discount_amount 
+		# if memberships_application.discount_amount > 0:
+		# 	si.apply_discount_on = "Grand Total"
+		# 	si.discount_amount = memberships_application.discount_amount 
 		si.insert(ignore_permissions=True)
 		si.submit()
 		memberships_application.sales_invoice = si.name
@@ -69,6 +71,7 @@ def get_item_price(item):
 	
 def create_membership(memberships_application):
 	if memberships_application.application_type == "Couple Membership" and memberships_application.payment_status == "Paid" and not memberships_application.secound_user:
+		
 		user,client,customer = create_user_client_customer(memberships_application.second_member_full_name,memberships_application.second_member_email_address,memberships_application.second_member_gender,memberships_application.second_member_mobile_number)
 		memberships_application.secound_user = user
 		memberships_application.secound_client = client
@@ -130,7 +133,6 @@ def create_user_client(memberships_application, child):
 		'mobile_no': child.mobile_number
 	})
 	client.insert()
-	frappe.db.submit()
 	return client.name
 def create_user_client_customer(name, mail, gender,mobile):
 	user = frappe.get_doc({
@@ -144,6 +146,7 @@ def create_user_client_customer(name, mail, gender,mobile):
 	client = frappe.get_doc({
 		'doctype': 'Client',
 		'gender': gender,
+		'first_name': name,
 		'user' : user.name,
 		'mobile_no': mobile
 	})
@@ -156,5 +159,4 @@ def create_user_client_customer(name, mail, gender,mobile):
 		'territory': "All Territories"
 	})
 	customer.insert()
-	frappe.db.submit()
 	return user.name,client.name,customer.name

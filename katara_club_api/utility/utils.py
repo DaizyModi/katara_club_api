@@ -8,7 +8,8 @@ def sync_update_data(update_from, to_update):
 				to_update.doctype,
 				to_update.name,
 				update_field_map[to_update.doctype][field],
-				data
+				data,
+				update_modified = False
 			)
 
 update_fields = [
